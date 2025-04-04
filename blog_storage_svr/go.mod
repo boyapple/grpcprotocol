@@ -1,4 +1,4 @@
-module github.com/boyapple/grpcprotocol
+module github.com/boyapple/grpcprotocol/blog_storage_svr
 
 go 1.22
 

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package blog_storage_svr;
+
+option go_package = "../blog_storage_svr";
+
+import "google/protobuf/timestamp.proto";
+
+message Pagination{
+  uint64 offset = 1;
+  uint64 limit = 2;
+}
+
+// 分类信息
+message CategoryInfo{
+  int64 id = 1;  // 分类id
+  string name = 2; // 分类名称
+  int64 parent_id = 3; // 父id
+  int32 sort_order = 4; // 排序值 数字越小越靠前
+  string describe = 5; // 分类描述
+  int32 status = 6; // 分类状态
+  string creator = 7; // 创建人
+  string updater = 8; // 更新人
+  google.protobuf.Timestamp create_time = 9; // 创建时间
+  google.protobuf.Timestamp update_time = 10; // 更新时间
+}
+
+message QueryCategoryInfoReq{
+  Pagination pagination = 1;
+}
+
+message QueryCategoryInfoRsp{
+  repeated CategoryInfo category_infos = 1;
+}
+
+message GetCategoryInfoReq{
+  int64 id = 1;
+}
+
+message GetCategoryInfoRsp{
+  CategoryInfo category_info = 1;
+}
+
+message CreateCategoryInfoReq{
+  CategoryInfo category_info = 1;
+}
+
+message CreateCategoryInfoRsp{
+
+}
+
+message UpdateCategoryInfoReq{
+  CategoryInfo category_info = 1;
+}
+
+message UpdateCategoryInfoRsp{
+
+}
+
+service BlogStorageSvr{
+  rpc QueryCategoryInfo(QueryCategoryInfoReq) returns (QueryCategoryInfoRsp);
+  rpc GetCategoryInfo(GetCategoryInfoReq) returns (GetCategoryInfoRsp);
+  rpc CreateCategoryInfo(CreateCategoryInfoReq) returns (CreateCategoryInfoRsp);
+  rpc UpdateCategoryInfo(UpdateCategoryInfoReq) returns (UpdateCategoryInfoRsp);
+}

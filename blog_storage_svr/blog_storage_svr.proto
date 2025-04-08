@@ -16,17 +16,20 @@ message CategoryInfo{
   int64 id = 1;  // 分类id
   string name = 2; // 分类名称
   int64 parent_id = 3; // 父id
-  int32 sort_order = 4; // 排序值 数字越小越靠前
-  string describe = 5; // 分类描述
-  int32 status = 6; // 分类状态
-  string creator = 7; // 创建人
-  string updater = 8; // 更新人
-  google.protobuf.Timestamp create_time = 9; // 创建时间
-  google.protobuf.Timestamp update_time = 10; // 更新时间
+  int32 priority = 4; // 优先级,数据越大越靠前
+  string icon = 5; // 分类图标
+  string background = 6; // 分类背景
+  google.protobuf.Timestamp create_time = 10; // 创建时间
+  google.protobuf.Timestamp update_time = 11; // 更新时间
+}
+
+message CategoryFilter{
+  string name = 1;
 }
 
 message QueryCategoryInfoReq{
   Pagination pagination = 1;
+  CategoryFilter category_filter = 2;
 }
 
 message QueryCategoryInfoRsp{
@@ -57,9 +60,64 @@ message UpdateCategoryInfoRsp{
 
 }
 
+// 标签信息
+message TagInfo{
+  int64 id = 1;  // 标签id
+  string name = 2; // 标签名称
+  string alias = 3;// 标签别名
+  string color = 4; // 颜色
+  string icon = 5; // 标签图标
+  string background = 6; // 标签背景
+  google.protobuf.Timestamp create_time = 10; // 创建时间
+  google.protobuf.Timestamp update_time = 11; // 更新时间
+}
+
+// 标签过滤
+message TagFilter{
+  string name = 1;
+}
+
+message QueryTagInfoReq{
+  Pagination pagination = 1;
+  TagFilter tag_filter = 2;
+}
+
+message QueryTagInfoRsp{
+  repeated TagInfo tag_infos = 1;
+}
+
+message GetTagInfoReq{
+  int64 id = 1;
+}
+
+message GetTagInfoRsp{
+  TagInfo tag_info = 1;
+}
+
+message CreateTagInfoReq{
+  TagInfo tag_info = 1;
+}
+
+message CreateTagInfoRsp{
+
+}
+
+message UpdateTagInfoReq{
+  TagInfo tag_info = 1;
+}
+
+message UpdateTagInfoRsp{
+
+}
+
 service BlogStorageSvr{
   rpc QueryCategoryInfo(QueryCategoryInfoReq) returns (QueryCategoryInfoRsp);
   rpc GetCategoryInfo(GetCategoryInfoReq) returns (GetCategoryInfoRsp);
   rpc CreateCategoryInfo(CreateCategoryInfoReq) returns (CreateCategoryInfoRsp);
   rpc UpdateCategoryInfo(UpdateCategoryInfoReq) returns (UpdateCategoryInfoRsp);
+
+  rpc QueryTagInfo(QueryTagInfoReq) returns (QueryTagInfoRsp);
+  rpc GetTagInfo(GetTagInfoReq) returns (GetTagInfoRsp);
+  rpc CreateTagInfo(CreateTagInfoReq) returns (CreateTagInfoRsp);
+  rpc UpdateTagInfo(UpdateTagInfoReq) returns (UpdateTagInfoRsp);
 }

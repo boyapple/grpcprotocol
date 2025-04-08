@@ -23,6 +23,10 @@ const (
 	BlogStorageSvr_GetCategoryInfo_FullMethodName    = "/blog_storage_svr.BlogStorageSvr/GetCategoryInfo"
 	BlogStorageSvr_CreateCategoryInfo_FullMethodName = "/blog_storage_svr.BlogStorageSvr/CreateCategoryInfo"
 	BlogStorageSvr_UpdateCategoryInfo_FullMethodName = "/blog_storage_svr.BlogStorageSvr/UpdateCategoryInfo"
+	BlogStorageSvr_QueryTagInfo_FullMethodName       = "/blog_storage_svr.BlogStorageSvr/QueryTagInfo"
+	BlogStorageSvr_GetTagInfo_FullMethodName         = "/blog_storage_svr.BlogStorageSvr/GetTagInfo"
+	BlogStorageSvr_CreateTagInfo_FullMethodName      = "/blog_storage_svr.BlogStorageSvr/CreateTagInfo"
+	BlogStorageSvr_UpdateTagInfo_FullMethodName      = "/blog_storage_svr.BlogStorageSvr/UpdateTagInfo"
 )
 
 // BlogStorageSvrClient is the client API for BlogStorageSvr service.
@@ -33,6 +37,10 @@ type BlogStorageSvrClient interface {
 	GetCategoryInfo(ctx context.Context, in *GetCategoryInfoReq, opts ...grpc.CallOption) (*GetCategoryInfoRsp, error)
 	CreateCategoryInfo(ctx context.Context, in *CreateCategoryInfoReq, opts ...grpc.CallOption) (*CreateCategoryInfoRsp, error)
 	UpdateCategoryInfo(ctx context.Context, in *UpdateCategoryInfoReq, opts ...grpc.CallOption) (*UpdateCategoryInfoRsp, error)
+	QueryTagInfo(ctx context.Context, in *QueryTagInfoReq, opts ...grpc.CallOption) (*QueryTagInfoRsp, error)
+	GetTagInfo(ctx context.Context, in *GetTagInfoReq, opts ...grpc.CallOption) (*GetTagInfoRsp, error)
+	CreateTagInfo(ctx context.Context, in *CreateTagInfoReq, opts ...grpc.CallOption) (*CreateTagInfoRsp, error)
+	UpdateTagInfo(ctx context.Context, in *UpdateTagInfoReq, opts ...grpc.CallOption) (*UpdateTagInfoRsp, error)
 }
 
 type blogStorageSvrClient struct {
@@ -79,6 +87,42 @@ func (c *blogStorageSvrClient) UpdateCategoryInfo(ctx context.Context, in *Updat
 	return out, nil
 }
 
+func (c *blogStorageSvrClient) QueryTagInfo(ctx context.Context, in *QueryTagInfoReq, opts ...grpc.CallOption) (*QueryTagInfoRsp, error) {
+	out := new(QueryTagInfoRsp)
+	err := c.cc.Invoke(ctx, BlogStorageSvr_QueryTagInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStorageSvrClient) GetTagInfo(ctx context.Context, in *GetTagInfoReq, opts ...grpc.CallOption) (*GetTagInfoRsp, error) {
+	out := new(GetTagInfoRsp)
+	err := c.cc.Invoke(ctx, BlogStorageSvr_GetTagInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStorageSvrClient) CreateTagInfo(ctx context.Context, in *CreateTagInfoReq, opts ...grpc.CallOption) (*CreateTagInfoRsp, error) {
+	out := new(CreateTagInfoRsp)
+	err := c.cc.Invoke(ctx, BlogStorageSvr_CreateTagInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogStorageSvrClient) UpdateTagInfo(ctx context.Context, in *UpdateTagInfoReq, opts ...grpc.CallOption) (*UpdateTagInfoRsp, error) {
+	out := new(UpdateTagInfoRsp)
+	err := c.cc.Invoke(ctx, BlogStorageSvr_UpdateTagInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BlogStorageSvrServer is the server API for BlogStorageSvr service.
 // All implementations should embed UnimplementedBlogStorageSvrServer
 // for forward compatibility
@@ -87,6 +131,10 @@ type BlogStorageSvrServer interface {
 	GetCategoryInfo(context.Context, *GetCategoryInfoReq) (*GetCategoryInfoRsp, error)
 	CreateCategoryInfo(context.Context, *CreateCategoryInfoReq) (*CreateCategoryInfoRsp, error)
 	UpdateCategoryInfo(context.Context, *UpdateCategoryInfoReq) (*UpdateCategoryInfoRsp, error)
+	QueryTagInfo(context.Context, *QueryTagInfoReq) (*QueryTagInfoRsp, error)
+	GetTagInfo(context.Context, *GetTagInfoReq) (*GetTagInfoRsp, error)
+	CreateTagInfo(context.Context, *CreateTagInfoReq) (*CreateTagInfoRsp, error)
+	UpdateTagInfo(context.Context, *UpdateTagInfoReq) (*UpdateTagInfoRsp, error)
 }
 
 // UnimplementedBlogStorageSvrServer should be embedded to have forward compatible implementations.
@@ -104,6 +152,18 @@ func (UnimplementedBlogStorageSvrServer) CreateCategoryInfo(context.Context, *Cr
 }
 func (UnimplementedBlogStorageSvrServer) UpdateCategoryInfo(context.Context, *UpdateCategoryInfoReq) (*UpdateCategoryInfoRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCategoryInfo not implemented")
+}
+func (UnimplementedBlogStorageSvrServer) QueryTagInfo(context.Context, *QueryTagInfoReq) (*QueryTagInfoRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryTagInfo not implemented")
+}
+func (UnimplementedBlogStorageSvrServer) GetTagInfo(context.Context, *GetTagInfoReq) (*GetTagInfoRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTagInfo not implemented")
+}
+func (UnimplementedBlogStorageSvrServer) CreateTagInfo(context.Context, *CreateTagInfoReq) (*CreateTagInfoRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTagInfo not implemented")
+}
+func (UnimplementedBlogStorageSvrServer) UpdateTagInfo(context.Context, *UpdateTagInfoReq) (*UpdateTagInfoRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTagInfo not implemented")
 }
 
 // UnsafeBlogStorageSvrServer may be embedded to opt out of forward compatibility for this service.
@@ -189,6 +249,78 @@ func _BlogStorageSvr_UpdateCategoryInfo_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BlogStorageSvr_QueryTagInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryTagInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStorageSvrServer).QueryTagInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BlogStorageSvr_QueryTagInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStorageSvrServer).QueryTagInfo(ctx, req.(*QueryTagInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStorageSvr_GetTagInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTagInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStorageSvrServer).GetTagInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BlogStorageSvr_GetTagInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStorageSvrServer).GetTagInfo(ctx, req.(*GetTagInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStorageSvr_CreateTagInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTagInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStorageSvrServer).CreateTagInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BlogStorageSvr_CreateTagInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStorageSvrServer).CreateTagInfo(ctx, req.(*CreateTagInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlogStorageSvr_UpdateTagInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTagInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogStorageSvrServer).UpdateTagInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BlogStorageSvr_UpdateTagInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogStorageSvrServer).UpdateTagInfo(ctx, req.(*UpdateTagInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BlogStorageSvr_ServiceDesc is the grpc.ServiceDesc for BlogStorageSvr service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -211,6 +343,22 @@ var BlogStorageSvr_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateCategoryInfo",
 			Handler:    _BlogStorageSvr_UpdateCategoryInfo_Handler,
+		},
+		{
+			MethodName: "QueryTagInfo",
+			Handler:    _BlogStorageSvr_QueryTagInfo_Handler,
+		},
+		{
+			MethodName: "GetTagInfo",
+			Handler:    _BlogStorageSvr_GetTagInfo_Handler,
+		},
+		{
+			MethodName: "CreateTagInfo",
+			Handler:    _BlogStorageSvr_CreateTagInfo_Handler,
+		},
+		{
+			MethodName: "UpdateTagInfo",
+			Handler:    _BlogStorageSvr_UpdateTagInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

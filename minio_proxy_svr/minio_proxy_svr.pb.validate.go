@@ -57,7 +57,27 @@ func (m *UploadObjectReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Bucket
+	if utf8.RuneCountInString(m.GetBucket()) < 1 {
+		err := UploadObjectReqValidationError{
+			field:  "Bucket",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetObjectName()) < 1 {
+		err := UploadObjectReqValidationError{
+			field:  "ObjectName",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if utf8.RuneCountInString(m.GetFilename()) < 1 {
 		err := UploadObjectReqValidationError{

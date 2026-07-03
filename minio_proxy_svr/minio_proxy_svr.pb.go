@@ -68,8 +68,9 @@ func (ErrCode) EnumDescriptor() ([]byte, []int) {
 type UploadObjectReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Bucket        string                 `protobuf:"bytes,1,opt,name=bucket,proto3" json:"bucket,omitempty"`
-	Filename      string                 `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`
-	Chunk         *Chunk                 `protobuf:"bytes,3,opt,name=chunk,proto3" json:"chunk,omitempty"`
+	ObjectName    string                 `protobuf:"bytes,2,opt,name=object_name,json=objectName,proto3" json:"object_name,omitempty"`
+	Filename      string                 `protobuf:"bytes,3,opt,name=filename,proto3" json:"filename,omitempty"`
+	Chunk         *Chunk                 `protobuf:"bytes,4,opt,name=chunk,proto3" json:"chunk,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -107,6 +108,13 @@ func (*UploadObjectReq) Descriptor() ([]byte, []int) {
 func (x *UploadObjectReq) GetBucket() string {
 	if x != nil {
 		return x.Bucket
+	}
+	return ""
+}
+
+func (x *UploadObjectReq) GetObjectName() string {
+	if x != nil {
+		return x.ObjectName
 	}
 	return ""
 }
@@ -233,11 +241,13 @@ var File_minio_proxy_svr_proto protoreflect.FileDescriptor
 
 const file_minio_proxy_svr_proto_rawDesc = "" +
 	"\n" +
-	"\x15minio_proxy_svr.proto\x12\x0fminio_proxy_svr\x1a\x17validate/validate.proto\"\x86\x01\n" +
-	"\x0fUploadObjectReq\x12\x16\n" +
-	"\x06bucket\x18\x01 \x01(\tR\x06bucket\x12#\n" +
-	"\bfilename\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\bfilename\x126\n" +
-	"\x05chunk\x18\x03 \x01(\v2\x16.minio_proxy_svr.ChunkB\b\xfaB\x05\x8a\x01\x02\x10\x01R\x05chunk\"S\n" +
+	"\x15minio_proxy_svr.proto\x12\x0fminio_proxy_svr\x1a\x17validate/validate.proto\"\xb9\x01\n" +
+	"\x0fUploadObjectReq\x12\x1f\n" +
+	"\x06bucket\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x06bucket\x12(\n" +
+	"\vobject_name\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
+	"objectName\x12#\n" +
+	"\bfilename\x18\x03 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\bfilename\x126\n" +
+	"\x05chunk\x18\x04 \x01(\v2\x16.minio_proxy_svr.ChunkB\b\xfaB\x05\x8a\x01\x02\x10\x01R\x05chunk\"S\n" +
 	"\x05Chunk\x12\x1b\n" +
 	"\x04data\x18\x01 \x01(\fB\a\xfaB\x04z\x02\x10\x01R\x04data\x12\x14\n" +
 	"\x05index\x18\x02 \x01(\x03R\x05index\x12\x17\n" +

@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on UploadReq with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *UploadReq) Validate() error {
+// Validate checks the field values on UploadObjectReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UploadObjectReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on UploadReq with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in UploadReqMultiError, or nil
-// if none found.
-func (m *UploadReq) ValidateAll() error {
+// ValidateAll checks the field values on UploadObjectReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UploadObjectReqMultiError, or nil if none found.
+func (m *UploadObjectReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *UploadReq) validate(all bool) error {
+func (m *UploadObjectReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -60,7 +60,7 @@ func (m *UploadReq) validate(all bool) error {
 	// no validation rules for Bucket
 
 	if utf8.RuneCountInString(m.GetFilename()) < 1 {
-		err := UploadReqValidationError{
+		err := UploadObjectReqValidationError{
 			field:  "Filename",
 			reason: "value length must be at least 1 runes",
 		}
@@ -71,7 +71,7 @@ func (m *UploadReq) validate(all bool) error {
 	}
 
 	if m.GetChunk() == nil {
-		err := UploadReqValidationError{
+		err := UploadObjectReqValidationError{
 			field:  "Chunk",
 			reason: "value is required",
 		}
@@ -85,7 +85,7 @@ func (m *UploadReq) validate(all bool) error {
 		switch v := interface{}(m.GetChunk()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UploadReqValidationError{
+				errors = append(errors, UploadObjectReqValidationError{
 					field:  "Chunk",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -93,7 +93,7 @@ func (m *UploadReq) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, UploadReqValidationError{
+				errors = append(errors, UploadObjectReqValidationError{
 					field:  "Chunk",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -102,7 +102,7 @@ func (m *UploadReq) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetChunk()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return UploadReqValidationError{
+			return UploadObjectReqValidationError{
 				field:  "Chunk",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -111,18 +111,19 @@ func (m *UploadReq) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return UploadReqMultiError(errors)
+		return UploadObjectReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// UploadReqMultiError is an error wrapping multiple validation errors returned
-// by UploadReq.ValidateAll() if the designated constraints aren't met.
-type UploadReqMultiError []error
+// UploadObjectReqMultiError is an error wrapping multiple validation errors
+// returned by UploadObjectReq.ValidateAll() if the designated constraints
+// aren't met.
+type UploadObjectReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UploadReqMultiError) Error() string {
+func (m UploadObjectReqMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -131,11 +132,11 @@ func (m UploadReqMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m UploadReqMultiError) AllErrors() []error { return m }
+func (m UploadObjectReqMultiError) AllErrors() []error { return m }
 
-// UploadReqValidationError is the validation error returned by
-// UploadReq.Validate if the designated constraints aren't met.
-type UploadReqValidationError struct {
+// UploadObjectReqValidationError is the validation error returned by
+// UploadObjectReq.Validate if the designated constraints aren't met.
+type UploadObjectReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -143,22 +144,22 @@ type UploadReqValidationError struct {
 }
 
 // Field function returns field value.
-func (e UploadReqValidationError) Field() string { return e.field }
+func (e UploadObjectReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UploadReqValidationError) Reason() string { return e.reason }
+func (e UploadObjectReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UploadReqValidationError) Cause() error { return e.cause }
+func (e UploadObjectReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UploadReqValidationError) Key() bool { return e.key }
+func (e UploadObjectReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UploadReqValidationError) ErrorName() string { return "UploadReqValidationError" }
+func (e UploadObjectReqValidationError) ErrorName() string { return "UploadObjectReqValidationError" }
 
 // Error satisfies the builtin error interface
-func (e UploadReqValidationError) Error() string {
+func (e UploadObjectReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -170,14 +171,14 @@ func (e UploadReqValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUploadReq.%s: %s%s",
+		"invalid %sUploadObjectReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UploadReqValidationError{}
+var _ error = UploadObjectReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -185,7 +186,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UploadReqValidationError{}
+} = UploadObjectReqValidationError{}
 
 // Validate checks the field values on Chunk with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -300,22 +301,22 @@ var _ interface {
 	ErrorName() string
 } = ChunkValidationError{}
 
-// Validate checks the field values on UploadRsp with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *UploadRsp) Validate() error {
+// Validate checks the field values on UploadObjectRsp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UploadObjectRsp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on UploadRsp with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in UploadRspMultiError, or nil
-// if none found.
-func (m *UploadRsp) ValidateAll() error {
+// ValidateAll checks the field values on UploadObjectRsp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UploadObjectRspMultiError, or nil if none found.
+func (m *UploadObjectRsp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *UploadRsp) validate(all bool) error {
+func (m *UploadObjectRsp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -325,18 +326,19 @@ func (m *UploadRsp) validate(all bool) error {
 	// no validation rules for Url
 
 	if len(errors) > 0 {
-		return UploadRspMultiError(errors)
+		return UploadObjectRspMultiError(errors)
 	}
 
 	return nil
 }
 
-// UploadRspMultiError is an error wrapping multiple validation errors returned
-// by UploadRsp.ValidateAll() if the designated constraints aren't met.
-type UploadRspMultiError []error
+// UploadObjectRspMultiError is an error wrapping multiple validation errors
+// returned by UploadObjectRsp.ValidateAll() if the designated constraints
+// aren't met.
+type UploadObjectRspMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UploadRspMultiError) Error() string {
+func (m UploadObjectRspMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -345,11 +347,11 @@ func (m UploadRspMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m UploadRspMultiError) AllErrors() []error { return m }
+func (m UploadObjectRspMultiError) AllErrors() []error { return m }
 
-// UploadRspValidationError is the validation error returned by
-// UploadRsp.Validate if the designated constraints aren't met.
-type UploadRspValidationError struct {
+// UploadObjectRspValidationError is the validation error returned by
+// UploadObjectRsp.Validate if the designated constraints aren't met.
+type UploadObjectRspValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -357,22 +359,22 @@ type UploadRspValidationError struct {
 }
 
 // Field function returns field value.
-func (e UploadRspValidationError) Field() string { return e.field }
+func (e UploadObjectRspValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UploadRspValidationError) Reason() string { return e.reason }
+func (e UploadObjectRspValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UploadRspValidationError) Cause() error { return e.cause }
+func (e UploadObjectRspValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UploadRspValidationError) Key() bool { return e.key }
+func (e UploadObjectRspValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UploadRspValidationError) ErrorName() string { return "UploadRspValidationError" }
+func (e UploadObjectRspValidationError) ErrorName() string { return "UploadObjectRspValidationError" }
 
 // Error satisfies the builtin error interface
-func (e UploadRspValidationError) Error() string {
+func (e UploadObjectRspValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -384,14 +386,14 @@ func (e UploadRspValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUploadRsp.%s: %s%s",
+		"invalid %sUploadObjectRsp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UploadRspValidationError{}
+var _ error = UploadObjectRspValidationError{}
 
 var _ interface {
 	Field() string
@@ -399,4 +401,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UploadRspValidationError{}
+} = UploadObjectRspValidationError{}

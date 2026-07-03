@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	MinioProxySvr_Upload_FullMethodName = "/minio_proxy_svr.MinioProxySvr/Upload"
+	MinioProxySvr_UploadObject_FullMethodName = "/minio_proxy_svr.MinioProxySvr/UploadObject"
 )
 
 // MinioProxySvrClient is the client API for MinioProxySvr service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MinioProxySvrClient interface {
-	Upload(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[UploadReq, UploadRsp], error)
+	UploadObject(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[UploadObjectReq, UploadObjectRsp], error)
 }
 
 type minioProxySvrClient struct {
@@ -37,24 +37,24 @@ func NewMinioProxySvrClient(cc grpc.ClientConnInterface) MinioProxySvrClient {
 	return &minioProxySvrClient{cc}
 }
 
-func (c *minioProxySvrClient) Upload(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[UploadReq, UploadRsp], error) {
+func (c *minioProxySvrClient) UploadObject(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[UploadObjectReq, UploadObjectRsp], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &MinioProxySvr_ServiceDesc.Streams[0], MinioProxySvr_Upload_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &MinioProxySvr_ServiceDesc.Streams[0], MinioProxySvr_UploadObject_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[UploadReq, UploadRsp]{ClientStream: stream}
+	x := &grpc.GenericClientStream[UploadObjectReq, UploadObjectRsp]{ClientStream: stream}
 	return x, nil
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type MinioProxySvr_UploadClient = grpc.ClientStreamingClient[UploadReq, UploadRsp]
+type MinioProxySvr_UploadObjectClient = grpc.ClientStreamingClient[UploadObjectReq, UploadObjectRsp]
 
 // MinioProxySvrServer is the server API for MinioProxySvr service.
 // All implementations should embed UnimplementedMinioProxySvrServer
 // for forward compatibility.
 type MinioProxySvrServer interface {
-	Upload(grpc.ClientStreamingServer[UploadReq, UploadRsp]) error
+	UploadObject(grpc.ClientStreamingServer[UploadObjectReq, UploadObjectRsp]) error
 }
 
 // UnimplementedMinioProxySvrServer should be embedded to have
@@ -64,8 +64,8 @@ type MinioProxySvrServer interface {
 // pointer dereference when methods are called.
 type UnimplementedMinioProxySvrServer struct{}
 
-func (UnimplementedMinioProxySvrServer) Upload(grpc.ClientStreamingServer[UploadReq, UploadRsp]) error {
-	return status.Error(codes.Unimplemented, "method Upload not implemented")
+func (UnimplementedMinioProxySvrServer) UploadObject(grpc.ClientStreamingServer[UploadObjectReq, UploadObjectRsp]) error {
+	return status.Error(codes.Unimplemented, "method UploadObject not implemented")
 }
 func (UnimplementedMinioProxySvrServer) testEmbeddedByValue() {}
 
@@ -87,12 +87,12 @@ func RegisterMinioProxySvrServer(s grpc.ServiceRegistrar, srv MinioProxySvrServe
 	s.RegisterService(&MinioProxySvr_ServiceDesc, srv)
 }
 
-func _MinioProxySvr_Upload_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(MinioProxySvrServer).Upload(&grpc.GenericServerStream[UploadReq, UploadRsp]{ServerStream: stream})
+func _MinioProxySvr_UploadObject_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(MinioProxySvrServer).UploadObject(&grpc.GenericServerStream[UploadObjectReq, UploadObjectRsp]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type MinioProxySvr_UploadServer = grpc.ClientStreamingServer[UploadReq, UploadRsp]
+type MinioProxySvr_UploadObjectServer = grpc.ClientStreamingServer[UploadObjectReq, UploadObjectRsp]
 
 // MinioProxySvr_ServiceDesc is the grpc.ServiceDesc for MinioProxySvr service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -103,8 +103,8 @@ var MinioProxySvr_ServiceDesc = grpc.ServiceDesc{
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Upload",
-			Handler:       _MinioProxySvr_Upload_Handler,
+			StreamName:    "UploadObject",
+			Handler:       _MinioProxySvr_UploadObject_Handler,
 			ClientStreams: true,
 		},
 	},

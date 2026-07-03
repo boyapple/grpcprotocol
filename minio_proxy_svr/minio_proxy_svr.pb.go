@@ -65,7 +65,7 @@ func (ErrCode) EnumDescriptor() ([]byte, []int) {
 	return file_minio_proxy_svr_proto_rawDescGZIP(), []int{0}
 }
 
-type UploadReq struct {
+type UploadObjectReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Bucket        string                 `protobuf:"bytes,1,opt,name=bucket,proto3" json:"bucket,omitempty"`
 	Filename      string                 `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`
@@ -74,20 +74,20 @@ type UploadReq struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *UploadReq) Reset() {
-	*x = UploadReq{}
+func (x *UploadObjectReq) Reset() {
+	*x = UploadObjectReq{}
 	mi := &file_minio_proxy_svr_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *UploadReq) String() string {
+func (x *UploadObjectReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UploadReq) ProtoMessage() {}
+func (*UploadObjectReq) ProtoMessage() {}
 
-func (x *UploadReq) ProtoReflect() protoreflect.Message {
+func (x *UploadObjectReq) ProtoReflect() protoreflect.Message {
 	mi := &file_minio_proxy_svr_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -99,26 +99,26 @@ func (x *UploadReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UploadReq.ProtoReflect.Descriptor instead.
-func (*UploadReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use UploadObjectReq.ProtoReflect.Descriptor instead.
+func (*UploadObjectReq) Descriptor() ([]byte, []int) {
 	return file_minio_proxy_svr_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *UploadReq) GetBucket() string {
+func (x *UploadObjectReq) GetBucket() string {
 	if x != nil {
 		return x.Bucket
 	}
 	return ""
 }
 
-func (x *UploadReq) GetFilename() string {
+func (x *UploadObjectReq) GetFilename() string {
 	if x != nil {
 		return x.Filename
 	}
 	return ""
 }
 
-func (x *UploadReq) GetChunk() *Chunk {
+func (x *UploadObjectReq) GetChunk() *Chunk {
 	if x != nil {
 		return x.Chunk
 	}
@@ -185,27 +185,27 @@ func (x *Chunk) GetIsLast() bool {
 	return false
 }
 
-type UploadRsp struct {
+type UploadObjectRsp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *UploadRsp) Reset() {
-	*x = UploadRsp{}
+func (x *UploadObjectRsp) Reset() {
+	*x = UploadObjectRsp{}
 	mi := &file_minio_proxy_svr_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *UploadRsp) String() string {
+func (x *UploadObjectRsp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UploadRsp) ProtoMessage() {}
+func (*UploadObjectRsp) ProtoMessage() {}
 
-func (x *UploadRsp) ProtoReflect() protoreflect.Message {
+func (x *UploadObjectRsp) ProtoReflect() protoreflect.Message {
 	mi := &file_minio_proxy_svr_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -217,12 +217,12 @@ func (x *UploadRsp) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UploadRsp.ProtoReflect.Descriptor instead.
-func (*UploadRsp) Descriptor() ([]byte, []int) {
+// Deprecated: Use UploadObjectRsp.ProtoReflect.Descriptor instead.
+func (*UploadObjectRsp) Descriptor() ([]byte, []int) {
 	return file_minio_proxy_svr_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *UploadRsp) GetUrl() string {
+func (x *UploadObjectRsp) GetUrl() string {
 	if x != nil {
 		return x.Url
 	}
@@ -233,21 +233,21 @@ var File_minio_proxy_svr_proto protoreflect.FileDescriptor
 
 const file_minio_proxy_svr_proto_rawDesc = "" +
 	"\n" +
-	"\x15minio_proxy_svr.proto\x12\x0fminio_proxy_svr\x1a\x17validate/validate.proto\"\x80\x01\n" +
-	"\tUploadReq\x12\x16\n" +
+	"\x15minio_proxy_svr.proto\x12\x0fminio_proxy_svr\x1a\x17validate/validate.proto\"\x86\x01\n" +
+	"\x0fUploadObjectReq\x12\x16\n" +
 	"\x06bucket\x18\x01 \x01(\tR\x06bucket\x12#\n" +
 	"\bfilename\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\bfilename\x126\n" +
 	"\x05chunk\x18\x03 \x01(\v2\x16.minio_proxy_svr.ChunkB\b\xfaB\x05\x8a\x01\x02\x10\x01R\x05chunk\"S\n" +
 	"\x05Chunk\x12\x1b\n" +
 	"\x04data\x18\x01 \x01(\fB\a\xfaB\x04z\x02\x10\x01R\x04data\x12\x14\n" +
 	"\x05index\x18\x02 \x01(\x03R\x05index\x12\x17\n" +
-	"\ais_last\x18\x03 \x01(\bR\x06isLast\"\x1d\n" +
-	"\tUploadRsp\x12\x10\n" +
+	"\ais_last\x18\x03 \x01(\bR\x06isLast\"#\n" +
+	"\x0fUploadObjectRsp\x12\x10\n" +
 	"\x03url\x18\x01 \x01(\tR\x03url*\x1f\n" +
 	"\aErrCode\x12\x14\n" +
-	"\x10ERR_CODE_SUCCESS\x10\x002S\n" +
-	"\rMinioProxySvr\x12B\n" +
-	"\x06Upload\x12\x1a.minio_proxy_svr.UploadReq\x1a\x1a.minio_proxy_svr.UploadRsp(\x01B2Z0github.com/boyapple/grpcprotocol/minio_proxy_svrb\x06proto3"
+	"\x10ERR_CODE_SUCCESS\x10\x002e\n" +
+	"\rMinioProxySvr\x12T\n" +
+	"\fUploadObject\x12 .minio_proxy_svr.UploadObjectReq\x1a .minio_proxy_svr.UploadObjectRsp(\x01B2Z0github.com/boyapple/grpcprotocol/minio_proxy_svrb\x06proto3"
 
 var (
 	file_minio_proxy_svr_proto_rawDescOnce sync.Once
@@ -264,15 +264,15 @@ func file_minio_proxy_svr_proto_rawDescGZIP() []byte {
 var file_minio_proxy_svr_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_minio_proxy_svr_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_minio_proxy_svr_proto_goTypes = []any{
-	(ErrCode)(0),      // 0: minio_proxy_svr.ErrCode
-	(*UploadReq)(nil), // 1: minio_proxy_svr.UploadReq
-	(*Chunk)(nil),     // 2: minio_proxy_svr.Chunk
-	(*UploadRsp)(nil), // 3: minio_proxy_svr.UploadRsp
+	(ErrCode)(0),            // 0: minio_proxy_svr.ErrCode
+	(*UploadObjectReq)(nil), // 1: minio_proxy_svr.UploadObjectReq
+	(*Chunk)(nil),           // 2: minio_proxy_svr.Chunk
+	(*UploadObjectRsp)(nil), // 3: minio_proxy_svr.UploadObjectRsp
 }
 var file_minio_proxy_svr_proto_depIdxs = []int32{
-	2, // 0: minio_proxy_svr.UploadReq.chunk:type_name -> minio_proxy_svr.Chunk
-	1, // 1: minio_proxy_svr.MinioProxySvr.Upload:input_type -> minio_proxy_svr.UploadReq
-	3, // 2: minio_proxy_svr.MinioProxySvr.Upload:output_type -> minio_proxy_svr.UploadRsp
+	2, // 0: minio_proxy_svr.UploadObjectReq.chunk:type_name -> minio_proxy_svr.Chunk
+	1, // 1: minio_proxy_svr.MinioProxySvr.UploadObject:input_type -> minio_proxy_svr.UploadObjectReq
+	3, // 2: minio_proxy_svr.MinioProxySvr.UploadObject:output_type -> minio_proxy_svr.UploadObjectRsp
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

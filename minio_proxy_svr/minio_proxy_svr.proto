@@ -10,7 +10,7 @@ enum ErrCode{
   ERR_CODE_SUCCESS = 0;
 }
 
-message UploadReq {
+message UploadObjectReq {
   string bucket = 1;
   string filename = 2[(validate.rules).string.min_len = 1];
   Chunk chunk = 3[(validate.rules).message.required = true];
@@ -22,10 +22,10 @@ message Chunk {
   bool is_last = 3;
 }
 
-message UploadRsp {
+message UploadObjectRsp {
   string url = 1;
 }
 
 service MinioProxySvr {
-  rpc Upload(stream UploadReq) returns (UploadRsp);
+  rpc UploadObject(stream UploadObjectReq) returns (UploadObjectRsp);
 }

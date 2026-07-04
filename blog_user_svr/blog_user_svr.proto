@@ -1,0 +1,197 @@
+syntax = "proto3";
+
+package blog_user_svr;
+
+option go_package = "github.com/boyapple/grpcprotocol/blog_user_svr";
+
+import "validate/validate.proto";
+
+// 用户服务错误码 11000-11999 用户错误码
+enum ErrCode {
+  ERR_CODE_OK = 0;                     // 成功
+  ERR_CODE_USER_EXIST = 11001;       // 用户已存在
+  ERR_CODE_USER_NOT_EXIST = 11002;    // 用户不存在
+  ERR_CODE_ACCOUNT_DELETED = 11003; // 账号注销
+  ERR_CODE_ACCOUNT_LOCKED = 11004;  // 账号锁定
+  ERR_CODE_ACCOUNT_DISABLED = 11005;  // 账号已禁用
+  ERR_CODE_PASSWORD_ERROR = 11006; // 密码错误
+}
+
+// ── 用户行为类型枚举 ─────────────────────────────────────────
+enum UserAction {
+  USER_ACTION_UNSPECIFIED = 0;
+  USER_ACTION_LOGIN = 1;              // 登录
+  USER_ACTION_PUBLISH_ARTICLE = 2;    // 发布文章
+  USER_ACTION_LIKE_ARTICLE = 3;       // 点赞文章
+  USER_ACTION_FAVORITE_ARTICLE = 4;   // 收藏文章
+  USER_ACTION_FOLLOW_USER = 5;         // 关注用户
+  USER_ACTION_COMMENT_ARTICLE = 6;     // 评论文章
+  USER_ACTION_VIEW_ARTICLE = 7;        // 阅读文章
+  USER_ACTION_SHARE_ARTICLE = 8;       // 分享文章
+}
+
+enum AccountStatus{
+  ACCOUNT_STATUS_UNSPECIFIED = 0; // 未指定
+  ACCOUNT_STATUS_NORMAL = 1; // 正常
+  ACCOUNT_STATUS_DISABLED = 2; // 已禁用
+  ACCOUNT_STATUS_LOCKED = 3; // 已锁定
+  ACCOUNT_STATUS_DELETED = 4; // 已注销
+}
+
+// 认证类型
+enum AuthType{
+  AUTH_TYPE_UNSPECIFIED = 0; // 未指定
+  AUTH_TYPE_USERNAME_PASSWORD = 1; // 用户名密码
+  AUTH_TYPE_PHONE_PASSWORD = 2; // 手机号密码
+  AUTH_TYPE_EMAIL_PASSWORD = 3; // 邮箱密码
+  AUTH_TYPE_PHONE_CODE = 4; // 手机号验证码
+  AUTH_TYPE_EMAIL_CODE = 5; // 邮箱验证码
+}
+
+enum AccountType{
+  ACCOUNT_TYPE_UNSPECIFIED = 0; // 未指定
+  ACCOUNT_TYPE_USERNAME = 1; // 用户名
+  ACCOUNT_TYPE_PHONE = 2; // 手机号
+  ACCOUNT_TYPE_EMAIL = 3; // 邮箱
+}
+
+// 帐号操作类型
+enum AccountOpType {
+  ACCOUNT_OP_TYPE_UNSPECIFIED = 0;       // 未指定
+  ACCOUNT_OP_TYPE_CHANGE_USERNAME = 1;   // 修改用户名
+  ACCOUNT_OP_TYPE_UPDATE_PASSWORD = 3;   // 修改密码
+  ACCOUNT_OP_TYPE_BIND_PHONE = 4;        // 绑定手机号
+  ACCOUNT_OP_TYPE_REBIND_PHONE = 5;      // 换绑手机号
+  ACCOUNT_OP_TYPE_BIND_EMAIL = 6;        // 绑定邮箱
+  ACCOUNT_OP_TYPE_REBIND_EMAIL = 7;      // 换绑邮箱
+  ACCOUNT_OP_TYPE_RESET_PASSWORD = 8;  // 重置密码（无需旧密码，已通过验证码校验）
+}
+
+message Profile {
+  uint64 user_id = 1;
+  string nickname = 2[(validate.rules).string = {min_len: 1, max_len: 20}];
+  string avatar = 3[(validate.rules).string = {min_len: 1, max_len: 500}];
+  string cover = 4;
+  string bio = 5;
+  string location = 6;
+  string job = 7;
+  string website = 8;
+  int64 create_time = 9; // 注册时间（秒级时间戳）
+}
+
+message Account {
+  uint64 user_id = 1;
+  string username = 2;      // 用户名（可能为空）
+  string phone = 3;         // 手机号（明文，可能为空）
+  string email = 4;         // 邮箱（明文，可能为空）
+}
+
+message Device {
+  string fingerprint = 1;
+  string ip = 3;
+  string os = 4;
+  string browser = 5;
+  string country = 6;
+  string province = 7;
+  string city = 8;
+  int64 last_active_time = 9;
+}
+
+message RegisterReq {
+  AccountType account_type = 1 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  Profile profile = 2[(validate.rules).message = {required: true}];
+  string account = 3 [(validate.rules).string = {min_len: 1}];
+}
+
+message RegisterRsp{
+  uint64 user_id = 1;
+}
+
+message CertificationReq {
+  AuthType auth_type = 1 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  string account = 2 [(validate.rules).string = {min_len: 1}];
+  string credential = 3; // 密码类型必传；验证码类型由调用方已校验，此处不传
+}
+
+message CertificationRsp {
+  uint64 user_id = 1;
+}
+
+message GetProfileReq {
+  uint64 user_id = 1 [(validate.rules).uint64 = {gte: 1}];
+}
+
+message GetProfileRsp {
+  Profile profile = 1;
+}
+
+// GetAccountReq 获取用户账号信息请求,只能获取自己的，通过ctx中拿
+message GetAccountReq {
+}
+
+message GetAccountRsp {
+  Account account = 1;
+}
+
+// UpdateProfileReq 更新用户基本信息请求
+message UpdateProfileReq {
+  Profile profile = 1[(validate.rules).message = {required: true}];
+}
+
+message UpdateProfileRsp {}
+
+message UpdateAccountReq {
+  AccountOpType op_type = 1 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  string new_val = 2 [(validate.rules).string = {min_len: 1}];
+  string old_val = 3;
+}
+
+message UpdateAccountRsp {}
+
+// ── 创作连续天数 ──────────────────────────────────────────
+message GetUserStreakReq {
+  uint64 user_id = 1 [(validate.rules).uint64 = {gt: 0}];
+}
+
+message GetUserStreakRsp {
+  int32 streak_days = 1;   // 连续创作天数
+  bool is_today_create = 2;  // 今日是否已创作
+}
+
+message GetUserDevicesReq{
+  uint64 user_id = 1 [(validate.rules).uint64 = {gt: 0}];
+}
+
+message GetUserDevicesRsp{
+  repeated Device devices = 1;
+}
+
+message ReportReq{
+  UserAction action = 1 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  string data = 2;
+}
+
+message ReportRsp{
+
+}
+
+service UserService {
+  // Register 创建用户
+  rpc Register(RegisterReq) returns (RegisterRsp);
+  // Certification 统一认证入口（密码登录 + 验证码登录）
+  rpc Certification(CertificationReq) returns (CertificationReq);
+  // GetProfile 获取用户公开资料（头像、昵称等）
+  rpc GetProfile(GetProfileReq) returns (GetProfileRsp);
+  // GetAccount 获取用户账号信息（用户名、手机号、邮箱，仅本人可调用）
+  rpc GetAccount(GetAccountReq) returns (GetAccountRsp);
+  // UpdateProfile 更新用户基本信息
+  rpc UpdateProfile(UpdateProfileReq) returns (UpdateProfileRsp);
+  // UpdateAccount 更新用户账号信息
+  rpc UpdateAccount(UpdateAccountReq) returns (UpdateAccountRsp);
+  // GetUserStreak 获取连续创作天数
+  rpc GetUserStreak(GetUserStreakReq) returns (GetUserStreakRsp);
+  // GetUserDevices 获取用户设备
+  rpc GetUserDevices(GetUserDevicesReq) returns (GetUserDevicesRsp);
+  // Report 上报用户行为
+  rpc Report(ReportReq) returns (ReportRsp);
+}

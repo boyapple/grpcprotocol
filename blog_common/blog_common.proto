@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package blog_common;
+
+option go_package = "github.com/boyapple/grpcprotocol/blog_common";
+
+import "validate/validate.proto";
+
+enum ErrCode {
+  ERR_CODE_OK = 0;                     // 成功
+
+  ERR_CODE_NETWORK_ERROR = 10001;      // 网络错误
+  ERR_CODE_INVALID_PARAM = 10002;      // 参数错误
+  ERR_CODE_NOT_FOUND = 10003;          // 资源不存在
+  ERR_CODE_USER_NOT_LOGIN = 10004; // 用户未登录
+
+  ERR_CODE_TOKEN_EXPIRED = 10010; // token过期
+  ERR_CODE_SEND_CODE_COOLDOWN = 10011; // 发送验证码过于频繁
+  ERR_CODE_INVALID_CODE = 10012; // 验证码错误
+}
+
+message Context {
+  uint64 user_id = 1;
+}
+
+message Header {
+  string fingerprint = 1[(validate.rules).string.min_len = 1];
+  string user_agent = 2;
+
+  string client_ip = 10;
+}

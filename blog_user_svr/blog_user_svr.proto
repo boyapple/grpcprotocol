@@ -107,13 +107,13 @@ message RegisterRsp{
   uint64 user_id = 1;
 }
 
-message CertificationReq {
+message AuthenticateReq {
   AuthType auth_type = 1 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
   string account = 2 [(validate.rules).string = {min_len: 1}];
   string credential = 3; // 密码类型必传；验证码类型由调用方已校验，此处不传
 }
 
-message CertificationRsp {
+message AuthenticateRsp {
   uint64 user_id = 1;
 }
 
@@ -178,8 +178,8 @@ message ReportRsp{
 service UserService {
   // Register 创建用户
   rpc Register(RegisterReq) returns (RegisterRsp);
-  // Certification 统一认证入口（密码登录 + 验证码登录）
-  rpc Certification(CertificationReq) returns (CertificationReq);
+  // Authenticate 统一认证入口（密码登录 + 验证码登录）
+  rpc Authenticate(AuthenticateReq) returns (AuthenticateRsp);
   // GetProfile 获取用户公开资料（头像、昵称等）
   rpc GetProfile(GetProfileReq) returns (GetProfileRsp);
   // GetAccount 获取用户账号信息（用户名、手机号、邮箱，仅本人可调用）

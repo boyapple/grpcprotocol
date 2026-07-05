@@ -763,7 +763,7 @@ func (x *RegisterRsp) GetUserId() uint64 {
 	return 0
 }
 
-type CertificationReq struct {
+type AuthenticateReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AuthType      AuthType               `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=blog_user_svr.AuthType" json:"auth_type,omitempty"`
 	Account       string                 `protobuf:"bytes,2,opt,name=account,proto3" json:"account,omitempty"`
@@ -772,20 +772,20 @@ type CertificationReq struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CertificationReq) Reset() {
-	*x = CertificationReq{}
+func (x *AuthenticateReq) Reset() {
+	*x = AuthenticateReq{}
 	mi := &file_blog_user_svr_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CertificationReq) String() string {
+func (x *AuthenticateReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CertificationReq) ProtoMessage() {}
+func (*AuthenticateReq) ProtoMessage() {}
 
-func (x *CertificationReq) ProtoReflect() protoreflect.Message {
+func (x *AuthenticateReq) ProtoReflect() protoreflect.Message {
 	mi := &file_blog_user_svr_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -797,53 +797,53 @@ func (x *CertificationReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CertificationReq.ProtoReflect.Descriptor instead.
-func (*CertificationReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use AuthenticateReq.ProtoReflect.Descriptor instead.
+func (*AuthenticateReq) Descriptor() ([]byte, []int) {
 	return file_blog_user_svr_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *CertificationReq) GetAuthType() AuthType {
+func (x *AuthenticateReq) GetAuthType() AuthType {
 	if x != nil {
 		return x.AuthType
 	}
 	return AuthType_AUTH_TYPE_UNSPECIFIED
 }
 
-func (x *CertificationReq) GetAccount() string {
+func (x *AuthenticateReq) GetAccount() string {
 	if x != nil {
 		return x.Account
 	}
 	return ""
 }
 
-func (x *CertificationReq) GetCredential() string {
+func (x *AuthenticateReq) GetCredential() string {
 	if x != nil {
 		return x.Credential
 	}
 	return ""
 }
 
-type CertificationRsp struct {
+type AuthenticateRsp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        uint64                 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CertificationRsp) Reset() {
-	*x = CertificationRsp{}
+func (x *AuthenticateRsp) Reset() {
+	*x = AuthenticateRsp{}
 	mi := &file_blog_user_svr_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CertificationRsp) String() string {
+func (x *AuthenticateRsp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CertificationRsp) ProtoMessage() {}
+func (*AuthenticateRsp) ProtoMessage() {}
 
-func (x *CertificationRsp) ProtoReflect() protoreflect.Message {
+func (x *AuthenticateRsp) ProtoReflect() protoreflect.Message {
 	mi := &file_blog_user_svr_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -855,12 +855,12 @@ func (x *CertificationRsp) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CertificationRsp.ProtoReflect.Descriptor instead.
-func (*CertificationRsp) Descriptor() ([]byte, []int) {
+// Deprecated: Use AuthenticateRsp.ProtoReflect.Descriptor instead.
+func (*AuthenticateRsp) Descriptor() ([]byte, []int) {
 	return file_blog_user_svr_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *CertificationRsp) GetUserId() uint64 {
+func (x *AuthenticateRsp) GetUserId() uint64 {
 	if x != nil {
 		return x.UserId
 	}
@@ -1523,15 +1523,15 @@ const file_blog_user_svr_proto_rawDesc = "" +
 	"\aprofile\x18\x02 \x01(\v2\x16.blog_user_svr.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\x12!\n" +
 	"\aaccount\x18\x03 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aaccount\"&\n" +
 	"\vRegisterRsp\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x04R\x06userId\"\x97\x01\n" +
-	"\x10CertificationReq\x12@\n" +
+	"\auser_id\x18\x01 \x01(\x04R\x06userId\"\x96\x01\n" +
+	"\x0fAuthenticateReq\x12@\n" +
 	"\tauth_type\x18\x01 \x01(\x0e2\x17.blog_user_svr.AuthTypeB\n" +
 	"\xfaB\a\x82\x01\x04\x10\x01 \x00R\bauthType\x12!\n" +
 	"\aaccount\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aaccount\x12\x1e\n" +
 	"\n" +
 	"credential\x18\x03 \x01(\tR\n" +
-	"credential\"+\n" +
-	"\x10CertificationRsp\x12\x17\n" +
+	"credential\"*\n" +
+	"\x0fAuthenticateRsp\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x04R\x06userId\"1\n" +
 	"\rGetProfileReq\x12 \n" +
 	"\auser_id\x18\x01 \x01(\x04B\a\xfaB\x042\x02(\x01R\x06userId\"A\n" +
@@ -1609,10 +1609,10 @@ const file_blog_user_svr_proto_rawDesc = "" +
 	"\x1cACCOUNT_OP_TYPE_REBIND_PHONE\x10\x05\x12\x1e\n" +
 	"\x1aACCOUNT_OP_TYPE_BIND_EMAIL\x10\x06\x12 \n" +
 	"\x1cACCOUNT_OP_TYPE_REBIND_EMAIL\x10\a\x12\"\n" +
-	"\x1eACCOUNT_OP_TYPE_RESET_PASSWORD\x10\b2\xc5\x05\n" +
+	"\x1eACCOUNT_OP_TYPE_RESET_PASSWORD\x10\b2\xc2\x05\n" +
 	"\vUserService\x12B\n" +
-	"\bRegister\x12\x1a.blog_user_svr.RegisterReq\x1a\x1a.blog_user_svr.RegisterRsp\x12Q\n" +
-	"\rCertification\x12\x1f.blog_user_svr.CertificationReq\x1a\x1f.blog_user_svr.CertificationReq\x12H\n" +
+	"\bRegister\x12\x1a.blog_user_svr.RegisterReq\x1a\x1a.blog_user_svr.RegisterRsp\x12N\n" +
+	"\fAuthenticate\x12\x1e.blog_user_svr.AuthenticateReq\x1a\x1e.blog_user_svr.AuthenticateRsp\x12H\n" +
 	"\n" +
 	"GetProfile\x12\x1c.blog_user_svr.GetProfileReq\x1a\x1c.blog_user_svr.GetProfileRsp\x12H\n" +
 	"\n" +
@@ -1649,8 +1649,8 @@ var file_blog_user_svr_proto_goTypes = []any{
 	(*Device)(nil),            // 8: blog_user_svr.Device
 	(*RegisterReq)(nil),       // 9: blog_user_svr.RegisterReq
 	(*RegisterRsp)(nil),       // 10: blog_user_svr.RegisterRsp
-	(*CertificationReq)(nil),  // 11: blog_user_svr.CertificationReq
-	(*CertificationRsp)(nil),  // 12: blog_user_svr.CertificationRsp
+	(*AuthenticateReq)(nil),   // 11: blog_user_svr.AuthenticateReq
+	(*AuthenticateRsp)(nil),   // 12: blog_user_svr.AuthenticateRsp
 	(*GetProfileReq)(nil),     // 13: blog_user_svr.GetProfileReq
 	(*GetProfileRsp)(nil),     // 14: blog_user_svr.GetProfileRsp
 	(*GetAccountReq)(nil),     // 15: blog_user_svr.GetAccountReq
@@ -1669,7 +1669,7 @@ var file_blog_user_svr_proto_goTypes = []any{
 var file_blog_user_svr_proto_depIdxs = []int32{
 	4,  // 0: blog_user_svr.RegisterReq.account_type:type_name -> blog_user_svr.AccountType
 	6,  // 1: blog_user_svr.RegisterReq.profile:type_name -> blog_user_svr.Profile
-	3,  // 2: blog_user_svr.CertificationReq.auth_type:type_name -> blog_user_svr.AuthType
+	3,  // 2: blog_user_svr.AuthenticateReq.auth_type:type_name -> blog_user_svr.AuthType
 	6,  // 3: blog_user_svr.GetProfileRsp.profile:type_name -> blog_user_svr.Profile
 	7,  // 4: blog_user_svr.GetAccountRsp.account:type_name -> blog_user_svr.Account
 	6,  // 5: blog_user_svr.UpdateProfileReq.profile:type_name -> blog_user_svr.Profile
@@ -1677,7 +1677,7 @@ var file_blog_user_svr_proto_depIdxs = []int32{
 	8,  // 7: blog_user_svr.GetUserDevicesRsp.devices:type_name -> blog_user_svr.Device
 	1,  // 8: blog_user_svr.ReportReq.action:type_name -> blog_user_svr.UserAction
 	9,  // 9: blog_user_svr.UserService.Register:input_type -> blog_user_svr.RegisterReq
-	11, // 10: blog_user_svr.UserService.Certification:input_type -> blog_user_svr.CertificationReq
+	11, // 10: blog_user_svr.UserService.Authenticate:input_type -> blog_user_svr.AuthenticateReq
 	13, // 11: blog_user_svr.UserService.GetProfile:input_type -> blog_user_svr.GetProfileReq
 	15, // 12: blog_user_svr.UserService.GetAccount:input_type -> blog_user_svr.GetAccountReq
 	17, // 13: blog_user_svr.UserService.UpdateProfile:input_type -> blog_user_svr.UpdateProfileReq
@@ -1686,7 +1686,7 @@ var file_blog_user_svr_proto_depIdxs = []int32{
 	23, // 16: blog_user_svr.UserService.GetUserDevices:input_type -> blog_user_svr.GetUserDevicesReq
 	25, // 17: blog_user_svr.UserService.Report:input_type -> blog_user_svr.ReportReq
 	10, // 18: blog_user_svr.UserService.Register:output_type -> blog_user_svr.RegisterRsp
-	11, // 19: blog_user_svr.UserService.Certification:output_type -> blog_user_svr.CertificationReq
+	12, // 19: blog_user_svr.UserService.Authenticate:output_type -> blog_user_svr.AuthenticateRsp
 	14, // 20: blog_user_svr.UserService.GetProfile:output_type -> blog_user_svr.GetProfileRsp
 	16, // 21: blog_user_svr.UserService.GetAccount:output_type -> blog_user_svr.GetAccountRsp
 	18, // 22: blog_user_svr.UserService.UpdateProfile:output_type -> blog_user_svr.UpdateProfileRsp

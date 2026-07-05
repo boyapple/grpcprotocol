@@ -20,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	UserService_Register_FullMethodName       = "/blog_user_svr.UserService/Register"
-	UserService_Certification_FullMethodName  = "/blog_user_svr.UserService/Certification"
+	UserService_Authenticate_FullMethodName   = "/blog_user_svr.UserService/Authenticate"
 	UserService_GetProfile_FullMethodName     = "/blog_user_svr.UserService/GetProfile"
 	UserService_GetAccount_FullMethodName     = "/blog_user_svr.UserService/GetAccount"
 	UserService_UpdateProfile_FullMethodName  = "/blog_user_svr.UserService/UpdateProfile"
@@ -36,8 +36,8 @@ const (
 type UserServiceClient interface {
 	// Register 创建用户
 	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterRsp, error)
-	// Certification 统一认证入口（密码登录 + 验证码登录）
-	Certification(ctx context.Context, in *CertificationReq, opts ...grpc.CallOption) (*CertificationReq, error)
+	// Authenticate 统一认证入口（密码登录 + 验证码登录）
+	Authenticate(ctx context.Context, in *AuthenticateReq, opts ...grpc.CallOption) (*AuthenticateRsp, error)
 	// GetProfile 获取用户公开资料（头像、昵称等）
 	GetProfile(ctx context.Context, in *GetProfileReq, opts ...grpc.CallOption) (*GetProfileRsp, error)
 	// GetAccount 获取用户账号信息（用户名、手机号、邮箱，仅本人可调用）
@@ -72,10 +72,10 @@ func (c *userServiceClient) Register(ctx context.Context, in *RegisterReq, opts 
 	return out, nil
 }
 
-func (c *userServiceClient) Certification(ctx context.Context, in *CertificationReq, opts ...grpc.CallOption) (*CertificationReq, error) {
+func (c *userServiceClient) Authenticate(ctx context.Context, in *AuthenticateReq, opts ...grpc.CallOption) (*AuthenticateRsp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CertificationReq)
-	err := c.cc.Invoke(ctx, UserService_Certification_FullMethodName, in, out, cOpts...)
+	out := new(AuthenticateRsp)
+	err := c.cc.Invoke(ctx, UserService_Authenticate_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -158,8 +158,8 @@ func (c *userServiceClient) Report(ctx context.Context, in *ReportReq, opts ...g
 type UserServiceServer interface {
 	// Register 创建用户
 	Register(context.Context, *RegisterReq) (*RegisterRsp, error)
-	// Certification 统一认证入口（密码登录 + 验证码登录）
-	Certification(context.Context, *CertificationReq) (*CertificationReq, error)
+	// Authenticate 统一认证入口（密码登录 + 验证码登录）
+	Authenticate(context.Context, *AuthenticateReq) (*AuthenticateRsp, error)
 	// GetProfile 获取用户公开资料（头像、昵称等）
 	GetProfile(context.Context, *GetProfileReq) (*GetProfileRsp, error)
 	// GetAccount 获取用户账号信息（用户名、手机号、邮箱，仅本人可调用）
@@ -186,8 +186,8 @@ type UnimplementedUserServiceServer struct{}
 func (UnimplementedUserServiceServer) Register(context.Context, *RegisterReq) (*RegisterRsp, error) {
 	return nil, status.Error(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedUserServiceServer) Certification(context.Context, *CertificationReq) (*CertificationReq, error) {
-	return nil, status.Error(codes.Unimplemented, "method Certification not implemented")
+func (UnimplementedUserServiceServer) Authenticate(context.Context, *AuthenticateReq) (*AuthenticateRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method Authenticate not implemented")
 }
 func (UnimplementedUserServiceServer) GetProfile(context.Context, *GetProfileReq) (*GetProfileRsp, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProfile not implemented")
@@ -248,20 +248,20 @@ func _UserService_Register_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_Certification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CertificationReq)
+func _UserService_Authenticate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthenticateReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).Certification(ctx, in)
+		return srv.(UserServiceServer).Authenticate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_Certification_FullMethodName,
+		FullMethod: UserService_Authenticate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).Certification(ctx, req.(*CertificationReq))
+		return srv.(UserServiceServer).Authenticate(ctx, req.(*AuthenticateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -404,8 +404,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_Register_Handler,
 		},
 		{
-			MethodName: "Certification",
-			Handler:    _UserService_Certification_Handler,
+			MethodName: "Authenticate",
+			Handler:    _UserService_Authenticate_Handler,
 		},
 		{
 			MethodName: "GetProfile",

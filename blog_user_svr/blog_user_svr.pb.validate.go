@@ -666,30 +666,30 @@ var _ interface {
 	ErrorName() string
 } = RegisterRspValidationError{}
 
-// Validate checks the field values on CertificationReq with the rules defined
+// Validate checks the field values on AuthenticateReq with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
-func (m *CertificationReq) Validate() error {
+func (m *AuthenticateReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CertificationReq with the rules
+// ValidateAll checks the field values on AuthenticateReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// CertificationReqMultiError, or nil if none found.
-func (m *CertificationReq) ValidateAll() error {
+// AuthenticateReqMultiError, or nil if none found.
+func (m *AuthenticateReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CertificationReq) validate(all bool) error {
+func (m *AuthenticateReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if _, ok := _CertificationReq_AuthType_NotInLookup[m.GetAuthType()]; ok {
-		err := CertificationReqValidationError{
+	if _, ok := _AuthenticateReq_AuthType_NotInLookup[m.GetAuthType()]; ok {
+		err := AuthenticateReqValidationError{
 			field:  "AuthType",
 			reason: "value must not be in list [AUTH_TYPE_UNSPECIFIED]",
 		}
@@ -700,7 +700,7 @@ func (m *CertificationReq) validate(all bool) error {
 	}
 
 	if _, ok := AuthType_name[int32(m.GetAuthType())]; !ok {
-		err := CertificationReqValidationError{
+		err := AuthenticateReqValidationError{
 			field:  "AuthType",
 			reason: "value must be one of the defined enum values",
 		}
@@ -711,7 +711,7 @@ func (m *CertificationReq) validate(all bool) error {
 	}
 
 	if utf8.RuneCountInString(m.GetAccount()) < 1 {
-		err := CertificationReqValidationError{
+		err := AuthenticateReqValidationError{
 			field:  "Account",
 			reason: "value length must be at least 1 runes",
 		}
@@ -724,19 +724,19 @@ func (m *CertificationReq) validate(all bool) error {
 	// no validation rules for Credential
 
 	if len(errors) > 0 {
-		return CertificationReqMultiError(errors)
+		return AuthenticateReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// CertificationReqMultiError is an error wrapping multiple validation errors
-// returned by CertificationReq.ValidateAll() if the designated constraints
+// AuthenticateReqMultiError is an error wrapping multiple validation errors
+// returned by AuthenticateReq.ValidateAll() if the designated constraints
 // aren't met.
-type CertificationReqMultiError []error
+type AuthenticateReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CertificationReqMultiError) Error() string {
+func (m AuthenticateReqMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -745,11 +745,11 @@ func (m CertificationReqMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CertificationReqMultiError) AllErrors() []error { return m }
+func (m AuthenticateReqMultiError) AllErrors() []error { return m }
 
-// CertificationReqValidationError is the validation error returned by
-// CertificationReq.Validate if the designated constraints aren't met.
-type CertificationReqValidationError struct {
+// AuthenticateReqValidationError is the validation error returned by
+// AuthenticateReq.Validate if the designated constraints aren't met.
+type AuthenticateReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -757,22 +757,22 @@ type CertificationReqValidationError struct {
 }
 
 // Field function returns field value.
-func (e CertificationReqValidationError) Field() string { return e.field }
+func (e AuthenticateReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CertificationReqValidationError) Reason() string { return e.reason }
+func (e AuthenticateReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CertificationReqValidationError) Cause() error { return e.cause }
+func (e AuthenticateReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CertificationReqValidationError) Key() bool { return e.key }
+func (e AuthenticateReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CertificationReqValidationError) ErrorName() string { return "CertificationReqValidationError" }
+func (e AuthenticateReqValidationError) ErrorName() string { return "AuthenticateReqValidationError" }
 
 // Error satisfies the builtin error interface
-func (e CertificationReqValidationError) Error() string {
+func (e AuthenticateReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -784,14 +784,14 @@ func (e CertificationReqValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCertificationReq.%s: %s%s",
+		"invalid %sAuthenticateReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CertificationReqValidationError{}
+var _ error = AuthenticateReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -799,28 +799,28 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CertificationReqValidationError{}
+} = AuthenticateReqValidationError{}
 
-var _CertificationReq_AuthType_NotInLookup = map[AuthType]struct{}{
+var _AuthenticateReq_AuthType_NotInLookup = map[AuthType]struct{}{
 	0: {},
 }
 
-// Validate checks the field values on CertificationRsp with the rules defined
+// Validate checks the field values on AuthenticateRsp with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
-func (m *CertificationRsp) Validate() error {
+func (m *AuthenticateRsp) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CertificationRsp with the rules
+// ValidateAll checks the field values on AuthenticateRsp with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// CertificationRspMultiError, or nil if none found.
-func (m *CertificationRsp) ValidateAll() error {
+// AuthenticateRspMultiError, or nil if none found.
+func (m *AuthenticateRsp) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CertificationRsp) validate(all bool) error {
+func (m *AuthenticateRsp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -830,19 +830,19 @@ func (m *CertificationRsp) validate(all bool) error {
 	// no validation rules for UserId
 
 	if len(errors) > 0 {
-		return CertificationRspMultiError(errors)
+		return AuthenticateRspMultiError(errors)
 	}
 
 	return nil
 }
 
-// CertificationRspMultiError is an error wrapping multiple validation errors
-// returned by CertificationRsp.ValidateAll() if the designated constraints
+// AuthenticateRspMultiError is an error wrapping multiple validation errors
+// returned by AuthenticateRsp.ValidateAll() if the designated constraints
 // aren't met.
-type CertificationRspMultiError []error
+type AuthenticateRspMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CertificationRspMultiError) Error() string {
+func (m AuthenticateRspMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -851,11 +851,11 @@ func (m CertificationRspMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CertificationRspMultiError) AllErrors() []error { return m }
+func (m AuthenticateRspMultiError) AllErrors() []error { return m }
 
-// CertificationRspValidationError is the validation error returned by
-// CertificationRsp.Validate if the designated constraints aren't met.
-type CertificationRspValidationError struct {
+// AuthenticateRspValidationError is the validation error returned by
+// AuthenticateRsp.Validate if the designated constraints aren't met.
+type AuthenticateRspValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -863,22 +863,22 @@ type CertificationRspValidationError struct {
 }
 
 // Field function returns field value.
-func (e CertificationRspValidationError) Field() string { return e.field }
+func (e AuthenticateRspValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CertificationRspValidationError) Reason() string { return e.reason }
+func (e AuthenticateRspValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CertificationRspValidationError) Cause() error { return e.cause }
+func (e AuthenticateRspValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CertificationRspValidationError) Key() bool { return e.key }
+func (e AuthenticateRspValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CertificationRspValidationError) ErrorName() string { return "CertificationRspValidationError" }
+func (e AuthenticateRspValidationError) ErrorName() string { return "AuthenticateRspValidationError" }
 
 // Error satisfies the builtin error interface
-func (e CertificationRspValidationError) Error() string {
+func (e AuthenticateRspValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -890,14 +890,14 @@ func (e CertificationRspValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCertificationRsp.%s: %s%s",
+		"invalid %sAuthenticateRsp.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CertificationRspValidationError{}
+var _ error = AuthenticateRspValidationError{}
 
 var _ interface {
 	Field() string
@@ -905,7 +905,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CertificationRspValidationError{}
+} = AuthenticateRspValidationError{}
 
 // Validate checks the field values on GetProfileReq with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

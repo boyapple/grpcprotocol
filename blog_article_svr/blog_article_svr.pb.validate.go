@@ -159,6 +159,223 @@ var _ interface {
 	ErrorName() string
 } = ArticleInfoValidationError{}
 
+// Validate checks the field values on CategoryInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CategoryInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CategoryInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CategoryInfoMultiError, or
+// nil if none found.
+func (m *CategoryInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CategoryInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Slug
+
+	// no validation rules for Description
+
+	// no validation rules for Icon
+
+	if len(errors) > 0 {
+		return CategoryInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// CategoryInfoMultiError is an error wrapping multiple validation errors
+// returned by CategoryInfo.ValidateAll() if the designated constraints aren't met.
+type CategoryInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CategoryInfoMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CategoryInfoMultiError) AllErrors() []error { return m }
+
+// CategoryInfoValidationError is the validation error returned by
+// CategoryInfo.Validate if the designated constraints aren't met.
+type CategoryInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CategoryInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CategoryInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CategoryInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CategoryInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CategoryInfoValidationError) ErrorName() string { return "CategoryInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CategoryInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCategoryInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CategoryInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CategoryInfoValidationError{}
+
+// Validate checks the field values on TagInfo with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *TagInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TagInfo with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in TagInfoMultiError, or nil if none found.
+func (m *TagInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TagInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Slug
+
+	// no validation rules for Description
+
+	// no validation rules for Color
+
+	if len(errors) > 0 {
+		return TagInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// TagInfoMultiError is an error wrapping multiple validation errors returned
+// by TagInfo.ValidateAll() if the designated constraints aren't met.
+type TagInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TagInfoMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TagInfoMultiError) AllErrors() []error { return m }
+
+// TagInfoValidationError is the validation error returned by TagInfo.Validate
+// if the designated constraints aren't met.
+type TagInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TagInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TagInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TagInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TagInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TagInfoValidationError) ErrorName() string { return "TagInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TagInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTagInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TagInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TagInfoValidationError{}
+
 // Validate checks the field values on Feeds with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -753,3 +970,471 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetArticleRspValidationError{}
+
+// Validate checks the field values on QueryCategoryReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *QueryCategoryReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on QueryCategoryReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// QueryCategoryReqMultiError, or nil if none found.
+func (m *QueryCategoryReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *QueryCategoryReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return QueryCategoryReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// QueryCategoryReqMultiError is an error wrapping multiple validation errors
+// returned by QueryCategoryReq.ValidateAll() if the designated constraints
+// aren't met.
+type QueryCategoryReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m QueryCategoryReqMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m QueryCategoryReqMultiError) AllErrors() []error { return m }
+
+// QueryCategoryReqValidationError is the validation error returned by
+// QueryCategoryReq.Validate if the designated constraints aren't met.
+type QueryCategoryReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e QueryCategoryReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e QueryCategoryReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e QueryCategoryReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e QueryCategoryReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e QueryCategoryReqValidationError) ErrorName() string { return "QueryCategoryReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e QueryCategoryReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sQueryCategoryReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = QueryCategoryReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = QueryCategoryReqValidationError{}
+
+// Validate checks the field values on QueryCategoryRsp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *QueryCategoryRsp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on QueryCategoryRsp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// QueryCategoryRspMultiError, or nil if none found.
+func (m *QueryCategoryRsp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *QueryCategoryRsp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetCategoryInfos() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, QueryCategoryRspValidationError{
+						field:  fmt.Sprintf("CategoryInfos[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, QueryCategoryRspValidationError{
+						field:  fmt.Sprintf("CategoryInfos[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return QueryCategoryRspValidationError{
+					field:  fmt.Sprintf("CategoryInfos[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return QueryCategoryRspMultiError(errors)
+	}
+
+	return nil
+}
+
+// QueryCategoryRspMultiError is an error wrapping multiple validation errors
+// returned by QueryCategoryRsp.ValidateAll() if the designated constraints
+// aren't met.
+type QueryCategoryRspMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m QueryCategoryRspMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m QueryCategoryRspMultiError) AllErrors() []error { return m }
+
+// QueryCategoryRspValidationError is the validation error returned by
+// QueryCategoryRsp.Validate if the designated constraints aren't met.
+type QueryCategoryRspValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e QueryCategoryRspValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e QueryCategoryRspValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e QueryCategoryRspValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e QueryCategoryRspValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e QueryCategoryRspValidationError) ErrorName() string { return "QueryCategoryRspValidationError" }
+
+// Error satisfies the builtin error interface
+func (e QueryCategoryRspValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sQueryCategoryRsp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = QueryCategoryRspValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = QueryCategoryRspValidationError{}
+
+// Validate checks the field values on QueryTagReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *QueryTagReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on QueryTagReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in QueryTagReqMultiError, or
+// nil if none found.
+func (m *QueryTagReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *QueryTagReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	if len(errors) > 0 {
+		return QueryTagReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// QueryTagReqMultiError is an error wrapping multiple validation errors
+// returned by QueryTagReq.ValidateAll() if the designated constraints aren't met.
+type QueryTagReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m QueryTagReqMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m QueryTagReqMultiError) AllErrors() []error { return m }
+
+// QueryTagReqValidationError is the validation error returned by
+// QueryTagReq.Validate if the designated constraints aren't met.
+type QueryTagReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e QueryTagReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e QueryTagReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e QueryTagReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e QueryTagReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e QueryTagReqValidationError) ErrorName() string { return "QueryTagReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e QueryTagReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sQueryTagReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = QueryTagReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = QueryTagReqValidationError{}
+
+// Validate checks the field values on QueryTagRsp with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *QueryTagRsp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on QueryTagRsp with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in QueryTagRspMultiError, or
+// nil if none found.
+func (m *QueryTagRsp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *QueryTagRsp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetTagInfos() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, QueryTagRspValidationError{
+						field:  fmt.Sprintf("TagInfos[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, QueryTagRspValidationError{
+						field:  fmt.Sprintf("TagInfos[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return QueryTagRspValidationError{
+					field:  fmt.Sprintf("TagInfos[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return QueryTagRspMultiError(errors)
+	}
+
+	return nil
+}
+
+// QueryTagRspMultiError is an error wrapping multiple validation errors
+// returned by QueryTagRsp.ValidateAll() if the designated constraints aren't met.
+type QueryTagRspMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m QueryTagRspMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m QueryTagRspMultiError) AllErrors() []error { return m }
+
+// QueryTagRspValidationError is the validation error returned by
+// QueryTagRsp.Validate if the designated constraints aren't met.
+type QueryTagRspValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e QueryTagRspValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e QueryTagRspValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e QueryTagRspValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e QueryTagRspValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e QueryTagRspValidationError) ErrorName() string { return "QueryTagRspValidationError" }
+
+// Error satisfies the builtin error interface
+func (e QueryTagRspValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sQueryTagRsp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = QueryTagRspValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = QueryTagRspValidationError{}

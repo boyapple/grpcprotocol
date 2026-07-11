@@ -19,8 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ArticleService_SaveArticle_FullMethodName = "/blog_user_svr.ArticleService/SaveArticle"
-	ArticleService_GetArticle_FullMethodName  = "/blog_user_svr.ArticleService/GetArticle"
+	ArticleService_SaveArticle_FullMethodName   = "/blog_user_svr.ArticleService/SaveArticle"
+	ArticleService_GetArticle_FullMethodName    = "/blog_user_svr.ArticleService/GetArticle"
+	ArticleService_QueryCategory_FullMethodName = "/blog_user_svr.ArticleService/QueryCategory"
+	ArticleService_QueryTag_FullMethodName      = "/blog_user_svr.ArticleService/QueryTag"
 )
 
 // ArticleServiceClient is the client API for ArticleService service.
@@ -29,6 +31,8 @@ const (
 type ArticleServiceClient interface {
 	SaveArticle(ctx context.Context, in *SaveArticleReq, opts ...grpc.CallOption) (*SaveArticleRsp, error)
 	GetArticle(ctx context.Context, in *GetArticleReq, opts ...grpc.CallOption) (*GetArticleRsp, error)
+	QueryCategory(ctx context.Context, in *QueryCategoryReq, opts ...grpc.CallOption) (*QueryCategoryRsp, error)
+	QueryTag(ctx context.Context, in *QueryTagReq, opts ...grpc.CallOption) (*QueryTagRsp, error)
 }
 
 type articleServiceClient struct {
@@ -59,12 +63,34 @@ func (c *articleServiceClient) GetArticle(ctx context.Context, in *GetArticleReq
 	return out, nil
 }
 
+func (c *articleServiceClient) QueryCategory(ctx context.Context, in *QueryCategoryReq, opts ...grpc.CallOption) (*QueryCategoryRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryCategoryRsp)
+	err := c.cc.Invoke(ctx, ArticleService_QueryCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) QueryTag(ctx context.Context, in *QueryTagReq, opts ...grpc.CallOption) (*QueryTagRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryTagRsp)
+	err := c.cc.Invoke(ctx, ArticleService_QueryTag_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ArticleServiceServer is the server API for ArticleService service.
 // All implementations should embed UnimplementedArticleServiceServer
 // for forward compatibility.
 type ArticleServiceServer interface {
 	SaveArticle(context.Context, *SaveArticleReq) (*SaveArticleRsp, error)
 	GetArticle(context.Context, *GetArticleReq) (*GetArticleRsp, error)
+	QueryCategory(context.Context, *QueryCategoryReq) (*QueryCategoryRsp, error)
+	QueryTag(context.Context, *QueryTagReq) (*QueryTagRsp, error)
 }
 
 // UnimplementedArticleServiceServer should be embedded to have
@@ -79,6 +105,12 @@ func (UnimplementedArticleServiceServer) SaveArticle(context.Context, *SaveArtic
 }
 func (UnimplementedArticleServiceServer) GetArticle(context.Context, *GetArticleReq) (*GetArticleRsp, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetArticle not implemented")
+}
+func (UnimplementedArticleServiceServer) QueryCategory(context.Context, *QueryCategoryReq) (*QueryCategoryRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method QueryCategory not implemented")
+}
+func (UnimplementedArticleServiceServer) QueryTag(context.Context, *QueryTagReq) (*QueryTagRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method QueryTag not implemented")
 }
 func (UnimplementedArticleServiceServer) testEmbeddedByValue() {}
 
@@ -136,6 +168,42 @@ func _ArticleService_GetArticle_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ArticleService_QueryCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCategoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).QueryCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_QueryCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).QueryCategory(ctx, req.(*QueryCategoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_QueryTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryTagReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).QueryTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_QueryTag_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).QueryTag(ctx, req.(*QueryTagReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ArticleService_ServiceDesc is the grpc.ServiceDesc for ArticleService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -150,6 +218,14 @@ var ArticleService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetArticle",
 			Handler:    _ArticleService_GetArticle_Handler,
+		},
+		{
+			MethodName: "QueryCategory",
+			Handler:    _ArticleService_QueryCategory_Handler,
+		},
+		{
+			MethodName: "QueryTag",
+			Handler:    _ArticleService_QueryTag_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

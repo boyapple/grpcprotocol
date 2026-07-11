@@ -233,6 +233,158 @@ func (x *ArticleInfo) GetTags() []string {
 	return nil
 }
 
+type CategoryInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Slug          string                 `protobuf:"bytes,3,opt,name=slug,proto3" json:"slug,omitempty"`
+	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Icon          string                 `protobuf:"bytes,5,opt,name=icon,proto3" json:"icon,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CategoryInfo) Reset() {
+	*x = CategoryInfo{}
+	mi := &file_blog_article_svr_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CategoryInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CategoryInfo) ProtoMessage() {}
+
+func (x *CategoryInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_article_svr_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CategoryInfo.ProtoReflect.Descriptor instead.
+func (*CategoryInfo) Descriptor() ([]byte, []int) {
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CategoryInfo) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *CategoryInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CategoryInfo) GetSlug() string {
+	if x != nil {
+		return x.Slug
+	}
+	return ""
+}
+
+func (x *CategoryInfo) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *CategoryInfo) GetIcon() string {
+	if x != nil {
+		return x.Icon
+	}
+	return ""
+}
+
+type TagInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Slug          string                 `protobuf:"bytes,3,opt,name=slug,proto3" json:"slug,omitempty"`
+	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Color         string                 `protobuf:"bytes,5,opt,name=color,proto3" json:"color,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TagInfo) Reset() {
+	*x = TagInfo{}
+	mi := &file_blog_article_svr_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TagInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TagInfo) ProtoMessage() {}
+
+func (x *TagInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_article_svr_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TagInfo.ProtoReflect.Descriptor instead.
+func (*TagInfo) Descriptor() ([]byte, []int) {
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *TagInfo) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *TagInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *TagInfo) GetSlug() string {
+	if x != nil {
+		return x.Slug
+	}
+	return ""
+}
+
+func (x *TagInfo) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *TagInfo) GetColor() string {
+	if x != nil {
+		return x.Color
+	}
+	return ""
+}
+
 type Feeds struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ArticleId     string                 `protobuf:"bytes,1,opt,name=article_id,json=articleId,proto3" json:"article_id,omitempty"`
@@ -253,7 +405,7 @@ type Feeds struct {
 
 func (x *Feeds) Reset() {
 	*x = Feeds{}
-	mi := &file_blog_article_svr_proto_msgTypes[1]
+	mi := &file_blog_article_svr_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -265,7 +417,7 @@ func (x *Feeds) String() string {
 func (*Feeds) ProtoMessage() {}
 
 func (x *Feeds) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_article_svr_proto_msgTypes[1]
+	mi := &file_blog_article_svr_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -278,7 +430,7 @@ func (x *Feeds) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Feeds.ProtoReflect.Descriptor instead.
 func (*Feeds) Descriptor() ([]byte, []int) {
-	return file_blog_article_svr_proto_rawDescGZIP(), []int{1}
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Feeds) GetArticleId() string {
@@ -374,7 +526,7 @@ type SaveArticleReq struct {
 
 func (x *SaveArticleReq) Reset() {
 	*x = SaveArticleReq{}
-	mi := &file_blog_article_svr_proto_msgTypes[2]
+	mi := &file_blog_article_svr_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -386,7 +538,7 @@ func (x *SaveArticleReq) String() string {
 func (*SaveArticleReq) ProtoMessage() {}
 
 func (x *SaveArticleReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_article_svr_proto_msgTypes[2]
+	mi := &file_blog_article_svr_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -399,7 +551,7 @@ func (x *SaveArticleReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SaveArticleReq.ProtoReflect.Descriptor instead.
 func (*SaveArticleReq) Descriptor() ([]byte, []int) {
-	return file_blog_article_svr_proto_rawDescGZIP(), []int{2}
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *SaveArticleReq) GetArticleInfo() *ArticleInfo {
@@ -418,7 +570,7 @@ type SaveArticleRsp struct {
 
 func (x *SaveArticleRsp) Reset() {
 	*x = SaveArticleRsp{}
-	mi := &file_blog_article_svr_proto_msgTypes[3]
+	mi := &file_blog_article_svr_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -430,7 +582,7 @@ func (x *SaveArticleRsp) String() string {
 func (*SaveArticleRsp) ProtoMessage() {}
 
 func (x *SaveArticleRsp) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_article_svr_proto_msgTypes[3]
+	mi := &file_blog_article_svr_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -443,7 +595,7 @@ func (x *SaveArticleRsp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SaveArticleRsp.ProtoReflect.Descriptor instead.
 func (*SaveArticleRsp) Descriptor() ([]byte, []int) {
-	return file_blog_article_svr_proto_rawDescGZIP(), []int{3}
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *SaveArticleRsp) GetId() string {
@@ -462,7 +614,7 @@ type GetArticleReq struct {
 
 func (x *GetArticleReq) Reset() {
 	*x = GetArticleReq{}
-	mi := &file_blog_article_svr_proto_msgTypes[4]
+	mi := &file_blog_article_svr_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -474,7 +626,7 @@ func (x *GetArticleReq) String() string {
 func (*GetArticleReq) ProtoMessage() {}
 
 func (x *GetArticleReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_article_svr_proto_msgTypes[4]
+	mi := &file_blog_article_svr_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -487,7 +639,7 @@ func (x *GetArticleReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleReq.ProtoReflect.Descriptor instead.
 func (*GetArticleReq) Descriptor() ([]byte, []int) {
-	return file_blog_article_svr_proto_rawDescGZIP(), []int{4}
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetArticleReq) GetArticleId() string {
@@ -506,7 +658,7 @@ type GetArticleRsp struct {
 
 func (x *GetArticleRsp) Reset() {
 	*x = GetArticleRsp{}
-	mi := &file_blog_article_svr_proto_msgTypes[5]
+	mi := &file_blog_article_svr_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -518,7 +670,7 @@ func (x *GetArticleRsp) String() string {
 func (*GetArticleRsp) ProtoMessage() {}
 
 func (x *GetArticleRsp) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_article_svr_proto_msgTypes[5]
+	mi := &file_blog_article_svr_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -531,12 +683,180 @@ func (x *GetArticleRsp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleRsp.ProtoReflect.Descriptor instead.
 func (*GetArticleRsp) Descriptor() ([]byte, []int) {
-	return file_blog_article_svr_proto_rawDescGZIP(), []int{5}
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetArticleRsp) GetArticleInfo() *ArticleInfo {
 	if x != nil {
 		return x.ArticleInfo
+	}
+	return nil
+}
+
+type QueryCategoryReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *QueryCategoryReq) Reset() {
+	*x = QueryCategoryReq{}
+	mi := &file_blog_article_svr_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *QueryCategoryReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryCategoryReq) ProtoMessage() {}
+
+func (x *QueryCategoryReq) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_article_svr_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QueryCategoryReq.ProtoReflect.Descriptor instead.
+func (*QueryCategoryReq) Descriptor() ([]byte, []int) {
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{8}
+}
+
+type QueryCategoryRsp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CategoryInfos []*CategoryInfo        `protobuf:"bytes,1,rep,name=category_infos,json=categoryInfos,proto3" json:"category_infos,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *QueryCategoryRsp) Reset() {
+	*x = QueryCategoryRsp{}
+	mi := &file_blog_article_svr_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *QueryCategoryRsp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryCategoryRsp) ProtoMessage() {}
+
+func (x *QueryCategoryRsp) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_article_svr_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QueryCategoryRsp.ProtoReflect.Descriptor instead.
+func (*QueryCategoryRsp) Descriptor() ([]byte, []int) {
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *QueryCategoryRsp) GetCategoryInfos() []*CategoryInfo {
+	if x != nil {
+		return x.CategoryInfos
+	}
+	return nil
+}
+
+type QueryTagReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *QueryTagReq) Reset() {
+	*x = QueryTagReq{}
+	mi := &file_blog_article_svr_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *QueryTagReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryTagReq) ProtoMessage() {}
+
+func (x *QueryTagReq) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_article_svr_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QueryTagReq.ProtoReflect.Descriptor instead.
+func (*QueryTagReq) Descriptor() ([]byte, []int) {
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *QueryTagReq) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type QueryTagRsp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TagInfos      []*TagInfo             `protobuf:"bytes,1,rep,name=tag_infos,json=tagInfos,proto3" json:"tag_infos,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *QueryTagRsp) Reset() {
+	*x = QueryTagRsp{}
+	mi := &file_blog_article_svr_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *QueryTagRsp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryTagRsp) ProtoMessage() {}
+
+func (x *QueryTagRsp) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_article_svr_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QueryTagRsp.ProtoReflect.Descriptor instead.
+func (*QueryTagRsp) Descriptor() ([]byte, []int) {
+	return file_blog_article_svr_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *QueryTagRsp) GetTagInfos() []*TagInfo {
+	if x != nil {
+		return x.TagInfos
 	}
 	return nil
 }
@@ -557,7 +877,19 @@ const file_blog_article_svr_proto_rawDesc = "" +
 	"\x06status\x18\a \x01(\x0e2\x1c.blog_user_svr.ArticleStatusR\x06status\x12\x1f\n" +
 	"\vcategory_id\x18\x14 \x01(\x04R\n" +
 	"categoryId\x12\x12\n" +
-	"\x04tags\x18\x15 \x03(\tR\x04tags\"\xe7\x02\n" +
+	"\x04tags\x18\x15 \x03(\tR\x04tags\"|\n" +
+	"\fCategoryInfo\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
+	"\x04slug\x18\x03 \x01(\tR\x04slug\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x12\n" +
+	"\x04icon\x18\x05 \x01(\tR\x04icon\"y\n" +
+	"\aTagInfo\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
+	"\x04slug\x18\x03 \x01(\tR\x04slug\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x14\n" +
+	"\x05color\x18\x05 \x01(\tR\x05color\"\xe7\x02\n" +
 	"\x05Feeds\x12\x1d\n" +
 	"\n" +
 	"article_id\x18\x01 \x01(\tR\tarticleId\x12\x1b\n" +
@@ -585,7 +917,14 @@ const file_blog_article_svr_proto_rawDesc = "" +
 	"\n" +
 	"article_id\x18\x01 \x01(\tR\tarticleId\"N\n" +
 	"\rGetArticleRsp\x12=\n" +
-	"\farticle_info\x18\x01 \x01(\v2\x1a.blog_user_svr.ArticleInfoR\varticleInfo*\xb8\x01\n" +
+	"\farticle_info\x18\x01 \x01(\v2\x1a.blog_user_svr.ArticleInfoR\varticleInfo\"\x12\n" +
+	"\x10QueryCategoryReq\"V\n" +
+	"\x10QueryCategoryRsp\x12B\n" +
+	"\x0ecategory_infos\x18\x01 \x03(\v2\x1b.blog_user_svr.CategoryInfoR\rcategoryInfos\"!\n" +
+	"\vQueryTagReq\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\"B\n" +
+	"\vQueryTagRsp\x123\n" +
+	"\ttag_infos\x18\x01 \x03(\v2\x16.blog_user_svr.TagInfoR\btagInfos*\xb8\x01\n" +
 	"\rArticleStatus\x12\x1a\n" +
 	"\x16ARTICLE_STATUS_UNKNOWN\x10\x00\x12\x18\n" +
 	"\x14ARTICLE_STATUS_DRAFT\x10\x01\x12\x1a\n" +
@@ -594,11 +933,13 @@ const file_blog_article_svr_proto_rawDesc = "" +
 	"\x17ARTICLE_STATUS_REJECTED\x10\x04\x12\x1a\n" +
 	"\x16ARTICLE_STATUS_OFFLINE\x10\x05*\x1a\n" +
 	"\aErrCode\x12\x0f\n" +
-	"\vERR_CODE_OK\x10\x002\xa7\x01\n" +
+	"\vERR_CODE_OK\x10\x002\xbe\x02\n" +
 	"\x0eArticleService\x12K\n" +
 	"\vSaveArticle\x12\x1d.blog_user_svr.SaveArticleReq\x1a\x1d.blog_user_svr.SaveArticleRsp\x12H\n" +
 	"\n" +
-	"GetArticle\x12\x1c.blog_user_svr.GetArticleReq\x1a\x1c.blog_user_svr.GetArticleRspB3Z1github.com/boyapple/grpcprotocol/blog_article_svrb\x06proto3"
+	"GetArticle\x12\x1c.blog_user_svr.GetArticleReq\x1a\x1c.blog_user_svr.GetArticleRsp\x12Q\n" +
+	"\rQueryCategory\x12\x1f.blog_user_svr.QueryCategoryReq\x1a\x1f.blog_user_svr.QueryCategoryRsp\x12B\n" +
+	"\bQueryTag\x12\x1a.blog_user_svr.QueryTagReq\x1a\x1a.blog_user_svr.QueryTagRspB3Z1github.com/boyapple/grpcprotocol/blog_article_svrb\x06proto3"
 
 var (
 	file_blog_article_svr_proto_rawDescOnce sync.Once
@@ -613,30 +954,42 @@ func file_blog_article_svr_proto_rawDescGZIP() []byte {
 }
 
 var file_blog_article_svr_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_blog_article_svr_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_blog_article_svr_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_blog_article_svr_proto_goTypes = []any{
-	(ArticleStatus)(0),     // 0: blog_user_svr.ArticleStatus
-	(ErrCode)(0),           // 1: blog_user_svr.ErrCode
-	(*ArticleInfo)(nil),    // 2: blog_user_svr.ArticleInfo
-	(*Feeds)(nil),          // 3: blog_user_svr.Feeds
-	(*SaveArticleReq)(nil), // 4: blog_user_svr.SaveArticleReq
-	(*SaveArticleRsp)(nil), // 5: blog_user_svr.SaveArticleRsp
-	(*GetArticleReq)(nil),  // 6: blog_user_svr.GetArticleReq
-	(*GetArticleRsp)(nil),  // 7: blog_user_svr.GetArticleRsp
+	(ArticleStatus)(0),       // 0: blog_user_svr.ArticleStatus
+	(ErrCode)(0),             // 1: blog_user_svr.ErrCode
+	(*ArticleInfo)(nil),      // 2: blog_user_svr.ArticleInfo
+	(*CategoryInfo)(nil),     // 3: blog_user_svr.CategoryInfo
+	(*TagInfo)(nil),          // 4: blog_user_svr.TagInfo
+	(*Feeds)(nil),            // 5: blog_user_svr.Feeds
+	(*SaveArticleReq)(nil),   // 6: blog_user_svr.SaveArticleReq
+	(*SaveArticleRsp)(nil),   // 7: blog_user_svr.SaveArticleRsp
+	(*GetArticleReq)(nil),    // 8: blog_user_svr.GetArticleReq
+	(*GetArticleRsp)(nil),    // 9: blog_user_svr.GetArticleRsp
+	(*QueryCategoryReq)(nil), // 10: blog_user_svr.QueryCategoryReq
+	(*QueryCategoryRsp)(nil), // 11: blog_user_svr.QueryCategoryRsp
+	(*QueryTagReq)(nil),      // 12: blog_user_svr.QueryTagReq
+	(*QueryTagRsp)(nil),      // 13: blog_user_svr.QueryTagRsp
 }
 var file_blog_article_svr_proto_depIdxs = []int32{
-	0, // 0: blog_user_svr.ArticleInfo.status:type_name -> blog_user_svr.ArticleStatus
-	2, // 1: blog_user_svr.SaveArticleReq.article_info:type_name -> blog_user_svr.ArticleInfo
-	2, // 2: blog_user_svr.GetArticleRsp.article_info:type_name -> blog_user_svr.ArticleInfo
-	4, // 3: blog_user_svr.ArticleService.SaveArticle:input_type -> blog_user_svr.SaveArticleReq
-	6, // 4: blog_user_svr.ArticleService.GetArticle:input_type -> blog_user_svr.GetArticleReq
-	5, // 5: blog_user_svr.ArticleService.SaveArticle:output_type -> blog_user_svr.SaveArticleRsp
-	7, // 6: blog_user_svr.ArticleService.GetArticle:output_type -> blog_user_svr.GetArticleRsp
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0,  // 0: blog_user_svr.ArticleInfo.status:type_name -> blog_user_svr.ArticleStatus
+	2,  // 1: blog_user_svr.SaveArticleReq.article_info:type_name -> blog_user_svr.ArticleInfo
+	2,  // 2: blog_user_svr.GetArticleRsp.article_info:type_name -> blog_user_svr.ArticleInfo
+	3,  // 3: blog_user_svr.QueryCategoryRsp.category_infos:type_name -> blog_user_svr.CategoryInfo
+	4,  // 4: blog_user_svr.QueryTagRsp.tag_infos:type_name -> blog_user_svr.TagInfo
+	6,  // 5: blog_user_svr.ArticleService.SaveArticle:input_type -> blog_user_svr.SaveArticleReq
+	8,  // 6: blog_user_svr.ArticleService.GetArticle:input_type -> blog_user_svr.GetArticleReq
+	10, // 7: blog_user_svr.ArticleService.QueryCategory:input_type -> blog_user_svr.QueryCategoryReq
+	12, // 8: blog_user_svr.ArticleService.QueryTag:input_type -> blog_user_svr.QueryTagReq
+	7,  // 9: blog_user_svr.ArticleService.SaveArticle:output_type -> blog_user_svr.SaveArticleRsp
+	9,  // 10: blog_user_svr.ArticleService.GetArticle:output_type -> blog_user_svr.GetArticleRsp
+	11, // 11: blog_user_svr.ArticleService.QueryCategory:output_type -> blog_user_svr.QueryCategoryRsp
+	13, // 12: blog_user_svr.ArticleService.QueryTag:output_type -> blog_user_svr.QueryTagRsp
+	9,  // [9:13] is the sub-list for method output_type
+	5,  // [5:9] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_blog_article_svr_proto_init() }
@@ -650,7 +1003,7 @@ func file_blog_article_svr_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_blog_article_svr_proto_rawDesc), len(file_blog_article_svr_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   6,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

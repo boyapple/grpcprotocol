@@ -34,6 +34,22 @@ message ArticleInfo {
   repeated string tags = 21;
 }
 
+message CategoryInfo{
+  uint64 id = 1;
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+  string icon = 5;
+}
+
+message TagInfo{
+  uint64 id = 1;
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+  string color = 5;
+}
+
 message Feeds {
   string article_id = 1;
   uint64 author_id = 2;
@@ -65,7 +81,26 @@ message GetArticleRsp{
   ArticleInfo article_info = 1;
 }
 
+message QueryCategoryReq{
+
+}
+
+message QueryCategoryRsp{
+  repeated CategoryInfo category_infos = 1;
+}
+
+message QueryTagReq{
+  string name = 1;
+}
+
+message QueryTagRsp{
+  repeated TagInfo tag_infos = 1;
+}
+
 service ArticleService{
   rpc SaveArticle(SaveArticleReq) returns (SaveArticleRsp);
   rpc GetArticle(GetArticleReq) returns (GetArticleRsp);
+
+  rpc QueryCategory(QueryCategoryReq) returns (QueryCategoryRsp);
+  rpc QueryTag(QueryTagReq) returns (QueryTagRsp);
 }

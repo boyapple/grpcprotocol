@@ -156,18 +156,11 @@ func (m *Header) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetFingerprint()) < 1 {
-		err := HeaderValidationError{
-			field:  "Fingerprint",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for DeviceId
 
-	// no validation rules for UserAgent
+	// no validation rules for Browser
+
+	// no validation rules for Os
 
 	// no validation rules for ClientIp
 

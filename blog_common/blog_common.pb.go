@@ -7,7 +7,6 @@
 package blog_common
 
 import (
-	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -132,8 +131,9 @@ func (x *Context) GetUserId() uint64 {
 
 type Header struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Fingerprint   string                 `protobuf:"bytes,1,opt,name=fingerprint,proto3" json:"fingerprint,omitempty"`
-	UserAgent     string                 `protobuf:"bytes,2,opt,name=user_agent,json=userAgent,proto3" json:"user_agent,omitempty"`
+	DeviceId      string                 `protobuf:"bytes,1,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	Browser       string                 `protobuf:"bytes,2,opt,name=browser,proto3" json:"browser,omitempty"`
+	Os            string                 `protobuf:"bytes,3,opt,name=os,proto3" json:"os,omitempty"`
 	ClientIp      string                 `protobuf:"bytes,10,opt,name=client_ip,json=clientIp,proto3" json:"client_ip,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -169,16 +169,23 @@ func (*Header) Descriptor() ([]byte, []int) {
 	return file_blog_common_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Header) GetFingerprint() string {
+func (x *Header) GetDeviceId() string {
 	if x != nil {
-		return x.Fingerprint
+		return x.DeviceId
 	}
 	return ""
 }
 
-func (x *Header) GetUserAgent() string {
+func (x *Header) GetBrowser() string {
 	if x != nil {
-		return x.UserAgent
+		return x.Browser
+	}
+	return ""
+}
+
+func (x *Header) GetOs() string {
+	if x != nil {
+		return x.Os
 	}
 	return ""
 }
@@ -194,13 +201,13 @@ var File_blog_common_proto protoreflect.FileDescriptor
 
 const file_blog_common_proto_rawDesc = "" +
 	"\n" +
-	"\x11blog_common.proto\x12\vblog_common\x1a\x17validate/validate.proto\"\"\n" +
+	"\x11blog_common.proto\x12\vblog_common\"\"\n" +
 	"\aContext\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x04R\x06userId\"o\n" +
-	"\x06Header\x12)\n" +
-	"\vfingerprint\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\vfingerprint\x12\x1d\n" +
-	"\n" +
-	"user_agent\x18\x02 \x01(\tR\tuserAgent\x12\x1b\n" +
+	"\auser_id\x18\x01 \x01(\x04R\x06userId\"l\n" +
+	"\x06Header\x12\x1b\n" +
+	"\tdevice_id\x18\x01 \x01(\tR\bdeviceId\x12\x18\n" +
+	"\abrowser\x18\x02 \x01(\tR\abrowser\x12\x0e\n" +
+	"\x02os\x18\x03 \x01(\tR\x02os\x12\x1b\n" +
 	"\tclient_ip\x18\n" +
 	" \x01(\tR\bclientIp*\xe6\x01\n" +
 	"\aErrCode\x12\x0f\n" +

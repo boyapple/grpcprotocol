@@ -148,16 +148,6 @@ message UpdateAccountReq {
 
 message UpdateAccountRsp {}
 
-// ── 创作连续天数 ──────────────────────────────────────────
-message GetUserStreakReq {
-  uint64 user_id = 1 [(validate.rules).uint64 = {gt: 0}];
-}
-
-message GetUserStreakRsp {
-  int32 streak_days = 1;   // 连续创作天数
-  bool is_today_create = 2;  // 今日是否已创作
-}
-
 message GetUserDevicesReq{
   uint64 user_id = 1 [(validate.rules).uint64 = {gt: 0}];
 }
@@ -188,8 +178,6 @@ service UserService {
   rpc UpdateProfile(UpdateProfileReq) returns (UpdateProfileRsp);
   // UpdateAccount 更新用户账号信息
   rpc UpdateAccount(UpdateAccountReq) returns (UpdateAccountRsp);
-  // GetUserStreak 获取连续创作天数
-  rpc GetUserStreak(GetUserStreakReq) returns (GetUserStreakRsp);
   // GetUserDevices 获取用户设备
   rpc GetUserDevices(GetUserDevicesReq) returns (GetUserDevicesRsp);
   // Report 上报用户行为

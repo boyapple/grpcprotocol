@@ -37,12 +37,6 @@ blog_user_svr:
 	cd blog_user_svr && protoc -I . -I .. --validate_out=lang=go:. --validate_opt=paths=source_relative $(PROTOC_FLAGS) blog_user_svr.proto
 	@echo ">>> Done: blog_user_svr"
 
-.PHONY: blog_agent_svr
-blog_agent_svr:
-	@echo ">>> Generating blog_agent_svr pb..."
-	cd blog_agent_svr && protoc -I . -I .. --validate_out=lang=go:. --validate_opt=paths=source_relative $(PROTOC_FLAGS) blog_agent_svr.proto
-	@echo ">>> Done: blog_agent_svr"
-
 .PHONY: minio_proxy_svr
 minio_proxy_svr:
 	@echo ">>> Generating minio_proxy_svr pb..."

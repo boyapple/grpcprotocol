@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ArticleService_SaveArticle_FullMethodName   = "/blog_user_svr.ArticleService/SaveArticle"
-	ArticleService_GetArticle_FullMethodName    = "/blog_user_svr.ArticleService/GetArticle"
-	ArticleService_QueryCategory_FullMethodName = "/blog_user_svr.ArticleService/QueryCategory"
-	ArticleService_QueryTag_FullMethodName      = "/blog_user_svr.ArticleService/QueryTag"
+	ArticleService_SaveArticle_FullMethodName   = "/blog_article_svr.ArticleService/SaveArticle"
+	ArticleService_GetArticle_FullMethodName    = "/blog_article_svr.ArticleService/GetArticle"
+	ArticleService_QueryCategory_FullMethodName = "/blog_article_svr.ArticleService/QueryCategory"
+	ArticleService_QueryTag_FullMethodName      = "/blog_article_svr.ArticleService/QueryTag"
 )
 
 // ArticleServiceClient is the client API for ArticleService service.
@@ -208,7 +208,7 @@ func _ArticleService_QueryTag_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ArticleService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "blog_user_svr.ArticleService",
+	ServiceName: "blog_article_svr.ArticleService",
 	HandlerType: (*ArticleServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

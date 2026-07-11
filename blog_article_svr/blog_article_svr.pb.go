@@ -133,7 +133,7 @@ type ArticleInfo struct {
 	Summary       string                 `protobuf:"bytes,4,opt,name=summary,proto3" json:"summary,omitempty"`
 	Cover         string                 `protobuf:"bytes,5,opt,name=cover,proto3" json:"cover,omitempty"`
 	Content       string                 `protobuf:"bytes,6,opt,name=content,proto3" json:"content,omitempty"`
-	Status        ArticleStatus          `protobuf:"varint,7,opt,name=status,proto3,enum=blog_user_svr.ArticleStatus" json:"status,omitempty"`
+	Status        ArticleStatus          `protobuf:"varint,7,opt,name=status,proto3,enum=blog_article_svr.ArticleStatus" json:"status,omitempty"`
 	CategoryId    uint64                 `protobuf:"varint,20,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	Tags          []string               `protobuf:"bytes,21,rep,name=tags,proto3" json:"tags,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -865,7 +865,7 @@ var File_blog_article_svr_proto protoreflect.FileDescriptor
 
 const file_blog_article_svr_proto_rawDesc = "" +
 	"\n" +
-	"\x16blog_article_svr.proto\x12\rblog_user_svr\x1a\x17validate/validate.proto\"\x9d\x02\n" +
+	"\x16blog_article_svr.proto\x12\x10blog_article_svr\x1a\x17validate/validate.proto\"\xa0\x02\n" +
 	"\vArticleInfo\x12\x1d\n" +
 	"\n" +
 	"article_id\x18\x01 \x01(\tR\tarticleId\x12$\n" +
@@ -873,8 +873,8 @@ const file_blog_article_svr_proto_rawDesc = "" +
 	"\x05title\x18\x03 \x01(\tR\x05title\x12\x18\n" +
 	"\asummary\x18\x04 \x01(\tR\asummary\x12\x14\n" +
 	"\x05cover\x18\x05 \x01(\tR\x05cover\x12\x18\n" +
-	"\acontent\x18\x06 \x01(\tR\acontent\x124\n" +
-	"\x06status\x18\a \x01(\x0e2\x1c.blog_user_svr.ArticleStatusR\x06status\x12\x1f\n" +
+	"\acontent\x18\x06 \x01(\tR\acontent\x127\n" +
+	"\x06status\x18\a \x01(\x0e2\x1f.blog_article_svr.ArticleStatusR\x06status\x12\x1f\n" +
 	"\vcategory_id\x18\x14 \x01(\x04R\n" +
 	"categoryId\x12\x12\n" +
 	"\x04tags\x18\x15 \x03(\tR\x04tags\"|\n" +
@@ -908,23 +908,23 @@ const file_blog_article_svr_proto_rawDesc = "" +
 	"isFeatured\x12!\n" +
 	"\fpublish_time\x18\x14 \x01(\x03R\vpublishTime\x12\x1f\n" +
 	"\vcreate_time\x18\x15 \x01(\x03R\n" +
-	"createTime\"Y\n" +
-	"\x0eSaveArticleReq\x12G\n" +
-	"\farticle_info\x18\x01 \x01(\v2\x1a.blog_user_svr.ArticleInfoB\b\xfaB\x05\x8a\x01\x02\x10\x01R\varticleInfo\" \n" +
+	"createTime\"\\\n" +
+	"\x0eSaveArticleReq\x12J\n" +
+	"\farticle_info\x18\x01 \x01(\v2\x1d.blog_article_svr.ArticleInfoB\b\xfaB\x05\x8a\x01\x02\x10\x01R\varticleInfo\" \n" +
 	"\x0eSaveArticleRsp\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\".\n" +
 	"\rGetArticleReq\x12\x1d\n" +
 	"\n" +
-	"article_id\x18\x01 \x01(\tR\tarticleId\"N\n" +
-	"\rGetArticleRsp\x12=\n" +
-	"\farticle_info\x18\x01 \x01(\v2\x1a.blog_user_svr.ArticleInfoR\varticleInfo\"\x12\n" +
-	"\x10QueryCategoryReq\"V\n" +
-	"\x10QueryCategoryRsp\x12B\n" +
-	"\x0ecategory_infos\x18\x01 \x03(\v2\x1b.blog_user_svr.CategoryInfoR\rcategoryInfos\"!\n" +
+	"article_id\x18\x01 \x01(\tR\tarticleId\"Q\n" +
+	"\rGetArticleRsp\x12@\n" +
+	"\farticle_info\x18\x01 \x01(\v2\x1d.blog_article_svr.ArticleInfoR\varticleInfo\"\x12\n" +
+	"\x10QueryCategoryReq\"Y\n" +
+	"\x10QueryCategoryRsp\x12E\n" +
+	"\x0ecategory_infos\x18\x01 \x03(\v2\x1e.blog_article_svr.CategoryInfoR\rcategoryInfos\"!\n" +
 	"\vQueryTagReq\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\"B\n" +
-	"\vQueryTagRsp\x123\n" +
-	"\ttag_infos\x18\x01 \x03(\v2\x16.blog_user_svr.TagInfoR\btagInfos*\xb8\x01\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\"E\n" +
+	"\vQueryTagRsp\x126\n" +
+	"\ttag_infos\x18\x01 \x03(\v2\x19.blog_article_svr.TagInfoR\btagInfos*\xb8\x01\n" +
 	"\rArticleStatus\x12\x1a\n" +
 	"\x16ARTICLE_STATUS_UNKNOWN\x10\x00\x12\x18\n" +
 	"\x14ARTICLE_STATUS_DRAFT\x10\x01\x12\x1a\n" +
@@ -933,13 +933,13 @@ const file_blog_article_svr_proto_rawDesc = "" +
 	"\x17ARTICLE_STATUS_REJECTED\x10\x04\x12\x1a\n" +
 	"\x16ARTICLE_STATUS_OFFLINE\x10\x05*\x1a\n" +
 	"\aErrCode\x12\x0f\n" +
-	"\vERR_CODE_OK\x10\x002\xbe\x02\n" +
-	"\x0eArticleService\x12K\n" +
-	"\vSaveArticle\x12\x1d.blog_user_svr.SaveArticleReq\x1a\x1d.blog_user_svr.SaveArticleRsp\x12H\n" +
+	"\vERR_CODE_OK\x10\x002\xd6\x02\n" +
+	"\x0eArticleService\x12Q\n" +
+	"\vSaveArticle\x12 .blog_article_svr.SaveArticleReq\x1a .blog_article_svr.SaveArticleRsp\x12N\n" +
 	"\n" +
-	"GetArticle\x12\x1c.blog_user_svr.GetArticleReq\x1a\x1c.blog_user_svr.GetArticleRsp\x12Q\n" +
-	"\rQueryCategory\x12\x1f.blog_user_svr.QueryCategoryReq\x1a\x1f.blog_user_svr.QueryCategoryRsp\x12B\n" +
-	"\bQueryTag\x12\x1a.blog_user_svr.QueryTagReq\x1a\x1a.blog_user_svr.QueryTagRspB3Z1github.com/boyapple/grpcprotocol/blog_article_svrb\x06proto3"
+	"GetArticle\x12\x1f.blog_article_svr.GetArticleReq\x1a\x1f.blog_article_svr.GetArticleRsp\x12W\n" +
+	"\rQueryCategory\x12\".blog_article_svr.QueryCategoryReq\x1a\".blog_article_svr.QueryCategoryRsp\x12H\n" +
+	"\bQueryTag\x12\x1d.blog_article_svr.QueryTagReq\x1a\x1d.blog_article_svr.QueryTagRspB3Z1github.com/boyapple/grpcprotocol/blog_article_svrb\x06proto3"
 
 var (
 	file_blog_article_svr_proto_rawDescOnce sync.Once
@@ -956,35 +956,35 @@ func file_blog_article_svr_proto_rawDescGZIP() []byte {
 var file_blog_article_svr_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_blog_article_svr_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_blog_article_svr_proto_goTypes = []any{
-	(ArticleStatus)(0),       // 0: blog_user_svr.ArticleStatus
-	(ErrCode)(0),             // 1: blog_user_svr.ErrCode
-	(*ArticleInfo)(nil),      // 2: blog_user_svr.ArticleInfo
-	(*CategoryInfo)(nil),     // 3: blog_user_svr.CategoryInfo
-	(*TagInfo)(nil),          // 4: blog_user_svr.TagInfo
-	(*Feeds)(nil),            // 5: blog_user_svr.Feeds
-	(*SaveArticleReq)(nil),   // 6: blog_user_svr.SaveArticleReq
-	(*SaveArticleRsp)(nil),   // 7: blog_user_svr.SaveArticleRsp
-	(*GetArticleReq)(nil),    // 8: blog_user_svr.GetArticleReq
-	(*GetArticleRsp)(nil),    // 9: blog_user_svr.GetArticleRsp
-	(*QueryCategoryReq)(nil), // 10: blog_user_svr.QueryCategoryReq
-	(*QueryCategoryRsp)(nil), // 11: blog_user_svr.QueryCategoryRsp
-	(*QueryTagReq)(nil),      // 12: blog_user_svr.QueryTagReq
-	(*QueryTagRsp)(nil),      // 13: blog_user_svr.QueryTagRsp
+	(ArticleStatus)(0),       // 0: blog_article_svr.ArticleStatus
+	(ErrCode)(0),             // 1: blog_article_svr.ErrCode
+	(*ArticleInfo)(nil),      // 2: blog_article_svr.ArticleInfo
+	(*CategoryInfo)(nil),     // 3: blog_article_svr.CategoryInfo
+	(*TagInfo)(nil),          // 4: blog_article_svr.TagInfo
+	(*Feeds)(nil),            // 5: blog_article_svr.Feeds
+	(*SaveArticleReq)(nil),   // 6: blog_article_svr.SaveArticleReq
+	(*SaveArticleRsp)(nil),   // 7: blog_article_svr.SaveArticleRsp
+	(*GetArticleReq)(nil),    // 8: blog_article_svr.GetArticleReq
+	(*GetArticleRsp)(nil),    // 9: blog_article_svr.GetArticleRsp
+	(*QueryCategoryReq)(nil), // 10: blog_article_svr.QueryCategoryReq
+	(*QueryCategoryRsp)(nil), // 11: blog_article_svr.QueryCategoryRsp
+	(*QueryTagReq)(nil),      // 12: blog_article_svr.QueryTagReq
+	(*QueryTagRsp)(nil),      // 13: blog_article_svr.QueryTagRsp
 }
 var file_blog_article_svr_proto_depIdxs = []int32{
-	0,  // 0: blog_user_svr.ArticleInfo.status:type_name -> blog_user_svr.ArticleStatus
-	2,  // 1: blog_user_svr.SaveArticleReq.article_info:type_name -> blog_user_svr.ArticleInfo
-	2,  // 2: blog_user_svr.GetArticleRsp.article_info:type_name -> blog_user_svr.ArticleInfo
-	3,  // 3: blog_user_svr.QueryCategoryRsp.category_infos:type_name -> blog_user_svr.CategoryInfo
-	4,  // 4: blog_user_svr.QueryTagRsp.tag_infos:type_name -> blog_user_svr.TagInfo
-	6,  // 5: blog_user_svr.ArticleService.SaveArticle:input_type -> blog_user_svr.SaveArticleReq
-	8,  // 6: blog_user_svr.ArticleService.GetArticle:input_type -> blog_user_svr.GetArticleReq
-	10, // 7: blog_user_svr.ArticleService.QueryCategory:input_type -> blog_user_svr.QueryCategoryReq
-	12, // 8: blog_user_svr.ArticleService.QueryTag:input_type -> blog_user_svr.QueryTagReq
-	7,  // 9: blog_user_svr.ArticleService.SaveArticle:output_type -> blog_user_svr.SaveArticleRsp
-	9,  // 10: blog_user_svr.ArticleService.GetArticle:output_type -> blog_user_svr.GetArticleRsp
-	11, // 11: blog_user_svr.ArticleService.QueryCategory:output_type -> blog_user_svr.QueryCategoryRsp
-	13, // 12: blog_user_svr.ArticleService.QueryTag:output_type -> blog_user_svr.QueryTagRsp
+	0,  // 0: blog_article_svr.ArticleInfo.status:type_name -> blog_article_svr.ArticleStatus
+	2,  // 1: blog_article_svr.SaveArticleReq.article_info:type_name -> blog_article_svr.ArticleInfo
+	2,  // 2: blog_article_svr.GetArticleRsp.article_info:type_name -> blog_article_svr.ArticleInfo
+	3,  // 3: blog_article_svr.QueryCategoryRsp.category_infos:type_name -> blog_article_svr.CategoryInfo
+	4,  // 4: blog_article_svr.QueryTagRsp.tag_infos:type_name -> blog_article_svr.TagInfo
+	6,  // 5: blog_article_svr.ArticleService.SaveArticle:input_type -> blog_article_svr.SaveArticleReq
+	8,  // 6: blog_article_svr.ArticleService.GetArticle:input_type -> blog_article_svr.GetArticleReq
+	10, // 7: blog_article_svr.ArticleService.QueryCategory:input_type -> blog_article_svr.QueryCategoryReq
+	12, // 8: blog_article_svr.ArticleService.QueryTag:input_type -> blog_article_svr.QueryTagReq
+	7,  // 9: blog_article_svr.ArticleService.SaveArticle:output_type -> blog_article_svr.SaveArticleRsp
+	9,  // 10: blog_article_svr.ArticleService.GetArticle:output_type -> blog_article_svr.GetArticleRsp
+	11, // 11: blog_article_svr.ArticleService.QueryCategory:output_type -> blog_article_svr.QueryCategoryRsp
+	13, // 12: blog_article_svr.ArticleService.QueryTag:output_type -> blog_article_svr.QueryTagRsp
 	9,  // [9:13] is the sub-list for method output_type
 	5,  // [5:9] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name

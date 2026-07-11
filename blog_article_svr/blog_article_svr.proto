@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package blog_user_svr;
+package blog_article_svr;
 
 option go_package = "github.com/boyapple/grpcprotocol/blog_article_svr";
 

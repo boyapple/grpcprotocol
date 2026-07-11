@@ -561,7 +561,7 @@ func (x *Account) GetEmail() string {
 
 type Device struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	Fingerprint    string                 `protobuf:"bytes,1,opt,name=fingerprint,proto3" json:"fingerprint,omitempty"`
+	DeviceId       string                 `protobuf:"bytes,1,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
 	Ip             string                 `protobuf:"bytes,3,opt,name=ip,proto3" json:"ip,omitempty"`
 	Os             string                 `protobuf:"bytes,4,opt,name=os,proto3" json:"os,omitempty"`
 	Browser        string                 `protobuf:"bytes,5,opt,name=browser,proto3" json:"browser,omitempty"`
@@ -603,9 +603,9 @@ func (*Device) Descriptor() ([]byte, []int) {
 	return file_blog_user_svr_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Device) GetFingerprint() string {
+func (x *Device) GetDeviceId() string {
 	if x != nil {
-		return x.Fingerprint
+		return x.DeviceId
 	}
 	return ""
 }
@@ -1213,103 +1213,6 @@ func (*UpdateAccountRsp) Descriptor() ([]byte, []int) {
 	return file_blog_user_svr_proto_rawDescGZIP(), []int{14}
 }
 
-// ── 创作连续天数 ──────────────────────────────────────────
-type GetUserStreakReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        uint64                 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetUserStreakReq) Reset() {
-	*x = GetUserStreakReq{}
-	mi := &file_blog_user_svr_proto_msgTypes[15]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetUserStreakReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetUserStreakReq) ProtoMessage() {}
-
-func (x *GetUserStreakReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_user_svr_proto_msgTypes[15]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetUserStreakReq.ProtoReflect.Descriptor instead.
-func (*GetUserStreakReq) Descriptor() ([]byte, []int) {
-	return file_blog_user_svr_proto_rawDescGZIP(), []int{15}
-}
-
-func (x *GetUserStreakReq) GetUserId() uint64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
-}
-
-type GetUserStreakRsp struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	StreakDays    int32                  `protobuf:"varint,1,opt,name=streak_days,json=streakDays,proto3" json:"streak_days,omitempty"`            // 连续创作天数
-	IsTodayCreate bool                   `protobuf:"varint,2,opt,name=is_today_create,json=isTodayCreate,proto3" json:"is_today_create,omitempty"` // 今日是否已创作
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetUserStreakRsp) Reset() {
-	*x = GetUserStreakRsp{}
-	mi := &file_blog_user_svr_proto_msgTypes[16]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetUserStreakRsp) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetUserStreakRsp) ProtoMessage() {}
-
-func (x *GetUserStreakRsp) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_user_svr_proto_msgTypes[16]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetUserStreakRsp.ProtoReflect.Descriptor instead.
-func (*GetUserStreakRsp) Descriptor() ([]byte, []int) {
-	return file_blog_user_svr_proto_rawDescGZIP(), []int{16}
-}
-
-func (x *GetUserStreakRsp) GetStreakDays() int32 {
-	if x != nil {
-		return x.StreakDays
-	}
-	return 0
-}
-
-func (x *GetUserStreakRsp) GetIsTodayCreate() bool {
-	if x != nil {
-		return x.IsTodayCreate
-	}
-	return false
-}
-
 type GetUserDevicesReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        uint64                 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
@@ -1319,7 +1222,7 @@ type GetUserDevicesReq struct {
 
 func (x *GetUserDevicesReq) Reset() {
 	*x = GetUserDevicesReq{}
-	mi := &file_blog_user_svr_proto_msgTypes[17]
+	mi := &file_blog_user_svr_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1331,7 +1234,7 @@ func (x *GetUserDevicesReq) String() string {
 func (*GetUserDevicesReq) ProtoMessage() {}
 
 func (x *GetUserDevicesReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_user_svr_proto_msgTypes[17]
+	mi := &file_blog_user_svr_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1344,7 +1247,7 @@ func (x *GetUserDevicesReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserDevicesReq.ProtoReflect.Descriptor instead.
 func (*GetUserDevicesReq) Descriptor() ([]byte, []int) {
-	return file_blog_user_svr_proto_rawDescGZIP(), []int{17}
+	return file_blog_user_svr_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetUserDevicesReq) GetUserId() uint64 {
@@ -1363,7 +1266,7 @@ type GetUserDevicesRsp struct {
 
 func (x *GetUserDevicesRsp) Reset() {
 	*x = GetUserDevicesRsp{}
-	mi := &file_blog_user_svr_proto_msgTypes[18]
+	mi := &file_blog_user_svr_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1375,7 +1278,7 @@ func (x *GetUserDevicesRsp) String() string {
 func (*GetUserDevicesRsp) ProtoMessage() {}
 
 func (x *GetUserDevicesRsp) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_user_svr_proto_msgTypes[18]
+	mi := &file_blog_user_svr_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1388,7 +1291,7 @@ func (x *GetUserDevicesRsp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserDevicesRsp.ProtoReflect.Descriptor instead.
 func (*GetUserDevicesRsp) Descriptor() ([]byte, []int) {
-	return file_blog_user_svr_proto_rawDescGZIP(), []int{18}
+	return file_blog_user_svr_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *GetUserDevicesRsp) GetDevices() []*Device {
@@ -1408,7 +1311,7 @@ type ReportReq struct {
 
 func (x *ReportReq) Reset() {
 	*x = ReportReq{}
-	mi := &file_blog_user_svr_proto_msgTypes[19]
+	mi := &file_blog_user_svr_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1420,7 +1323,7 @@ func (x *ReportReq) String() string {
 func (*ReportReq) ProtoMessage() {}
 
 func (x *ReportReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_user_svr_proto_msgTypes[19]
+	mi := &file_blog_user_svr_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1433,7 +1336,7 @@ func (x *ReportReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReportReq.ProtoReflect.Descriptor instead.
 func (*ReportReq) Descriptor() ([]byte, []int) {
-	return file_blog_user_svr_proto_rawDescGZIP(), []int{19}
+	return file_blog_user_svr_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ReportReq) GetAction() UserAction {
@@ -1458,7 +1361,7 @@ type ReportRsp struct {
 
 func (x *ReportRsp) Reset() {
 	*x = ReportRsp{}
-	mi := &file_blog_user_svr_proto_msgTypes[20]
+	mi := &file_blog_user_svr_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1470,7 +1373,7 @@ func (x *ReportRsp) String() string {
 func (*ReportRsp) ProtoMessage() {}
 
 func (x *ReportRsp) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_user_svr_proto_msgTypes[20]
+	mi := &file_blog_user_svr_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1483,7 +1386,7 @@ func (x *ReportRsp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReportRsp.ProtoReflect.Descriptor instead.
 func (*ReportRsp) Descriptor() ([]byte, []int) {
-	return file_blog_user_svr_proto_rawDescGZIP(), []int{20}
+	return file_blog_user_svr_proto_rawDescGZIP(), []int{18}
 }
 
 var File_blog_user_svr_proto protoreflect.FileDescriptor
@@ -1507,9 +1410,9 @@ const file_blog_user_svr_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\x04R\x06userId\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
 	"\x05phone\x18\x03 \x01(\tR\x05phone\x12\x14\n" +
-	"\x05email\x18\x04 \x01(\tR\x05email\"\xd8\x01\n" +
-	"\x06Device\x12 \n" +
-	"\vfingerprint\x18\x01 \x01(\tR\vfingerprint\x12\x0e\n" +
+	"\x05email\x18\x04 \x01(\tR\x05email\"\xd3\x01\n" +
+	"\x06Device\x12\x1b\n" +
+	"\tdevice_id\x18\x01 \x01(\tR\bdeviceId\x12\x0e\n" +
 	"\x02ip\x18\x03 \x01(\tR\x02ip\x12\x0e\n" +
 	"\x02os\x18\x04 \x01(\tR\x02os\x12\x18\n" +
 	"\abrowser\x18\x05 \x01(\tR\abrowser\x12\x18\n" +
@@ -1548,13 +1451,7 @@ const file_blog_user_svr_proto_rawDesc = "" +
 	"\xfaB\a\x82\x01\x04\x10\x01 \x00R\x06opType\x12 \n" +
 	"\anew_val\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x06newVal\x12\x17\n" +
 	"\aold_val\x18\x03 \x01(\tR\x06oldVal\"\x12\n" +
-	"\x10UpdateAccountRsp\"4\n" +
-	"\x10GetUserStreakReq\x12 \n" +
-	"\auser_id\x18\x01 \x01(\x04B\a\xfaB\x042\x02 \x00R\x06userId\"[\n" +
-	"\x10GetUserStreakRsp\x12\x1f\n" +
-	"\vstreak_days\x18\x01 \x01(\x05R\n" +
-	"streakDays\x12&\n" +
-	"\x0fis_today_create\x18\x02 \x01(\bR\risTodayCreate\"5\n" +
+	"\x10UpdateAccountRsp\"5\n" +
 	"\x11GetUserDevicesReq\x12 \n" +
 	"\auser_id\x18\x01 \x01(\x04B\a\xfaB\x042\x02 \x00R\x06userId\"D\n" +
 	"\x11GetUserDevicesRsp\x12/\n" +
@@ -1609,7 +1506,7 @@ const file_blog_user_svr_proto_rawDesc = "" +
 	"\x1cACCOUNT_OP_TYPE_REBIND_PHONE\x10\x05\x12\x1e\n" +
 	"\x1aACCOUNT_OP_TYPE_BIND_EMAIL\x10\x06\x12 \n" +
 	"\x1cACCOUNT_OP_TYPE_REBIND_EMAIL\x10\a\x12\"\n" +
-	"\x1eACCOUNT_OP_TYPE_RESET_PASSWORD\x10\b2\xc2\x05\n" +
+	"\x1eACCOUNT_OP_TYPE_RESET_PASSWORD\x10\b2\xef\x04\n" +
 	"\vUserService\x12B\n" +
 	"\bRegister\x12\x1a.blog_user_svr.RegisterReq\x1a\x1a.blog_user_svr.RegisterRsp\x12N\n" +
 	"\fAuthenticate\x12\x1e.blog_user_svr.AuthenticateReq\x1a\x1e.blog_user_svr.AuthenticateRsp\x12H\n" +
@@ -1618,8 +1515,7 @@ const file_blog_user_svr_proto_rawDesc = "" +
 	"\n" +
 	"GetAccount\x12\x1c.blog_user_svr.GetAccountReq\x1a\x1c.blog_user_svr.GetAccountRsp\x12Q\n" +
 	"\rUpdateProfile\x12\x1f.blog_user_svr.UpdateProfileReq\x1a\x1f.blog_user_svr.UpdateProfileRsp\x12Q\n" +
-	"\rUpdateAccount\x12\x1f.blog_user_svr.UpdateAccountReq\x1a\x1f.blog_user_svr.UpdateAccountRsp\x12Q\n" +
-	"\rGetUserStreak\x12\x1f.blog_user_svr.GetUserStreakReq\x1a\x1f.blog_user_svr.GetUserStreakRsp\x12T\n" +
+	"\rUpdateAccount\x12\x1f.blog_user_svr.UpdateAccountReq\x1a\x1f.blog_user_svr.UpdateAccountRsp\x12T\n" +
 	"\x0eGetUserDevices\x12 .blog_user_svr.GetUserDevicesReq\x1a .blog_user_svr.GetUserDevicesRsp\x12<\n" +
 	"\x06Report\x12\x18.blog_user_svr.ReportReq\x1a\x18.blog_user_svr.ReportRspB0Z.github.com/boyapple/grpcprotocol/blog_user_svrb\x06proto3"
 
@@ -1636,7 +1532,7 @@ func file_blog_user_svr_proto_rawDescGZIP() []byte {
 }
 
 var file_blog_user_svr_proto_enumTypes = make([]protoimpl.EnumInfo, 6)
-var file_blog_user_svr_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+var file_blog_user_svr_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_blog_user_svr_proto_goTypes = []any{
 	(ErrCode)(0),              // 0: blog_user_svr.ErrCode
 	(UserAction)(0),           // 1: blog_user_svr.UserAction
@@ -1659,12 +1555,10 @@ var file_blog_user_svr_proto_goTypes = []any{
 	(*UpdateProfileRsp)(nil),  // 18: blog_user_svr.UpdateProfileRsp
 	(*UpdateAccountReq)(nil),  // 19: blog_user_svr.UpdateAccountReq
 	(*UpdateAccountRsp)(nil),  // 20: blog_user_svr.UpdateAccountRsp
-	(*GetUserStreakReq)(nil),  // 21: blog_user_svr.GetUserStreakReq
-	(*GetUserStreakRsp)(nil),  // 22: blog_user_svr.GetUserStreakRsp
-	(*GetUserDevicesReq)(nil), // 23: blog_user_svr.GetUserDevicesReq
-	(*GetUserDevicesRsp)(nil), // 24: blog_user_svr.GetUserDevicesRsp
-	(*ReportReq)(nil),         // 25: blog_user_svr.ReportReq
-	(*ReportRsp)(nil),         // 26: blog_user_svr.ReportRsp
+	(*GetUserDevicesReq)(nil), // 21: blog_user_svr.GetUserDevicesReq
+	(*GetUserDevicesRsp)(nil), // 22: blog_user_svr.GetUserDevicesRsp
+	(*ReportReq)(nil),         // 23: blog_user_svr.ReportReq
+	(*ReportRsp)(nil),         // 24: blog_user_svr.ReportRsp
 }
 var file_blog_user_svr_proto_depIdxs = []int32{
 	4,  // 0: blog_user_svr.RegisterReq.account_type:type_name -> blog_user_svr.AccountType
@@ -1682,20 +1576,18 @@ var file_blog_user_svr_proto_depIdxs = []int32{
 	15, // 12: blog_user_svr.UserService.GetAccount:input_type -> blog_user_svr.GetAccountReq
 	17, // 13: blog_user_svr.UserService.UpdateProfile:input_type -> blog_user_svr.UpdateProfileReq
 	19, // 14: blog_user_svr.UserService.UpdateAccount:input_type -> blog_user_svr.UpdateAccountReq
-	21, // 15: blog_user_svr.UserService.GetUserStreak:input_type -> blog_user_svr.GetUserStreakReq
-	23, // 16: blog_user_svr.UserService.GetUserDevices:input_type -> blog_user_svr.GetUserDevicesReq
-	25, // 17: blog_user_svr.UserService.Report:input_type -> blog_user_svr.ReportReq
-	10, // 18: blog_user_svr.UserService.Register:output_type -> blog_user_svr.RegisterRsp
-	12, // 19: blog_user_svr.UserService.Authenticate:output_type -> blog_user_svr.AuthenticateRsp
-	14, // 20: blog_user_svr.UserService.GetProfile:output_type -> blog_user_svr.GetProfileRsp
-	16, // 21: blog_user_svr.UserService.GetAccount:output_type -> blog_user_svr.GetAccountRsp
-	18, // 22: blog_user_svr.UserService.UpdateProfile:output_type -> blog_user_svr.UpdateProfileRsp
-	20, // 23: blog_user_svr.UserService.UpdateAccount:output_type -> blog_user_svr.UpdateAccountRsp
-	22, // 24: blog_user_svr.UserService.GetUserStreak:output_type -> blog_user_svr.GetUserStreakRsp
-	24, // 25: blog_user_svr.UserService.GetUserDevices:output_type -> blog_user_svr.GetUserDevicesRsp
-	26, // 26: blog_user_svr.UserService.Report:output_type -> blog_user_svr.ReportRsp
-	18, // [18:27] is the sub-list for method output_type
-	9,  // [9:18] is the sub-list for method input_type
+	21, // 15: blog_user_svr.UserService.GetUserDevices:input_type -> blog_user_svr.GetUserDevicesReq
+	23, // 16: blog_user_svr.UserService.Report:input_type -> blog_user_svr.ReportReq
+	10, // 17: blog_user_svr.UserService.Register:output_type -> blog_user_svr.RegisterRsp
+	12, // 18: blog_user_svr.UserService.Authenticate:output_type -> blog_user_svr.AuthenticateRsp
+	14, // 19: blog_user_svr.UserService.GetProfile:output_type -> blog_user_svr.GetProfileRsp
+	16, // 20: blog_user_svr.UserService.GetAccount:output_type -> blog_user_svr.GetAccountRsp
+	18, // 21: blog_user_svr.UserService.UpdateProfile:output_type -> blog_user_svr.UpdateProfileRsp
+	20, // 22: blog_user_svr.UserService.UpdateAccount:output_type -> blog_user_svr.UpdateAccountRsp
+	22, // 23: blog_user_svr.UserService.GetUserDevices:output_type -> blog_user_svr.GetUserDevicesRsp
+	24, // 24: blog_user_svr.UserService.Report:output_type -> blog_user_svr.ReportRsp
+	17, // [17:25] is the sub-list for method output_type
+	9,  // [9:17] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
 	9,  // [9:9] is the sub-list for extension extendee
 	0,  // [0:9] is the sub-list for field type_name
@@ -1712,7 +1604,7 @@ func file_blog_user_svr_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_blog_user_svr_proto_rawDesc), len(file_blog_user_svr_proto_rawDesc)),
 			NumEnums:      6,
-			NumMessages:   21,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

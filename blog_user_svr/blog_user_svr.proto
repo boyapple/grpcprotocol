@@ -87,7 +87,7 @@ message Account {
 }
 
 message Device {
-  string fingerprint = 1;
+  string device_id = 1;
   string ip = 3;
   string os = 4;
   string browser = 5;

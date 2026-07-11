@@ -25,7 +25,6 @@ const (
 	UserService_GetAccount_FullMethodName     = "/blog_user_svr.UserService/GetAccount"
 	UserService_UpdateProfile_FullMethodName  = "/blog_user_svr.UserService/UpdateProfile"
 	UserService_UpdateAccount_FullMethodName  = "/blog_user_svr.UserService/UpdateAccount"
-	UserService_GetUserStreak_FullMethodName  = "/blog_user_svr.UserService/GetUserStreak"
 	UserService_GetUserDevices_FullMethodName = "/blog_user_svr.UserService/GetUserDevices"
 	UserService_Report_FullMethodName         = "/blog_user_svr.UserService/Report"
 )
@@ -46,8 +45,6 @@ type UserServiceClient interface {
 	UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*UpdateProfileRsp, error)
 	// UpdateAccount 更新用户账号信息
 	UpdateAccount(ctx context.Context, in *UpdateAccountReq, opts ...grpc.CallOption) (*UpdateAccountRsp, error)
-	// GetUserStreak 获取连续创作天数
-	GetUserStreak(ctx context.Context, in *GetUserStreakReq, opts ...grpc.CallOption) (*GetUserStreakRsp, error)
 	// GetUserDevices 获取用户设备
 	GetUserDevices(ctx context.Context, in *GetUserDevicesReq, opts ...grpc.CallOption) (*GetUserDevicesRsp, error)
 	// Report 上报用户行为
@@ -122,16 +119,6 @@ func (c *userServiceClient) UpdateAccount(ctx context.Context, in *UpdateAccount
 	return out, nil
 }
 
-func (c *userServiceClient) GetUserStreak(ctx context.Context, in *GetUserStreakReq, opts ...grpc.CallOption) (*GetUserStreakRsp, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetUserStreakRsp)
-	err := c.cc.Invoke(ctx, UserService_GetUserStreak_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *userServiceClient) GetUserDevices(ctx context.Context, in *GetUserDevicesReq, opts ...grpc.CallOption) (*GetUserDevicesRsp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetUserDevicesRsp)
@@ -168,8 +155,6 @@ type UserServiceServer interface {
 	UpdateProfile(context.Context, *UpdateProfileReq) (*UpdateProfileRsp, error)
 	// UpdateAccount 更新用户账号信息
 	UpdateAccount(context.Context, *UpdateAccountReq) (*UpdateAccountRsp, error)
-	// GetUserStreak 获取连续创作天数
-	GetUserStreak(context.Context, *GetUserStreakReq) (*GetUserStreakRsp, error)
 	// GetUserDevices 获取用户设备
 	GetUserDevices(context.Context, *GetUserDevicesReq) (*GetUserDevicesRsp, error)
 	// Report 上报用户行为
@@ -200,9 +185,6 @@ func (UnimplementedUserServiceServer) UpdateProfile(context.Context, *UpdateProf
 }
 func (UnimplementedUserServiceServer) UpdateAccount(context.Context, *UpdateAccountReq) (*UpdateAccountRsp, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateAccount not implemented")
-}
-func (UnimplementedUserServiceServer) GetUserStreak(context.Context, *GetUserStreakReq) (*GetUserStreakRsp, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetUserStreak not implemented")
 }
 func (UnimplementedUserServiceServer) GetUserDevices(context.Context, *GetUserDevicesReq) (*GetUserDevicesRsp, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetUserDevices not implemented")
@@ -338,24 +320,6 @@ func _UserService_UpdateAccount_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_GetUserStreak_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserStreakReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).GetUserStreak(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_GetUserStreak_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetUserStreak(ctx, req.(*GetUserStreakReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _UserService_GetUserDevices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetUserDevicesReq)
 	if err := dec(in); err != nil {
@@ -422,10 +386,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAccount",
 			Handler:    _UserService_UpdateAccount_Handler,
-		},
-		{
-			MethodName: "GetUserStreak",
-			Handler:    _UserService_GetUserStreak_Handler,
 		},
 		{
 			MethodName: "GetUserDevices",

@@ -2715,6 +2715,10 @@ func (m *SearchArticleReq) validate(all bool) error {
 
 	// no validation rules for Keyword
 
+	// no validation rules for ScrollId
+
+	// no validation rules for Size
+
 	if len(errors) > 0 {
 		return SearchArticleReqMultiError(errors)
 	}
@@ -2848,6 +2852,10 @@ func (m *SearchArticleRsp) validate(all bool) error {
 		}
 
 	}
+
+	// no validation rules for HasMore
+
+	// no validation rules for ScrollId
 
 	if len(errors) > 0 {
 		return SearchArticleRspMultiError(errors)

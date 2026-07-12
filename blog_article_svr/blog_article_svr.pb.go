@@ -1354,6 +1354,8 @@ func (x *ReadArticleRsp) GetArticleInfo() *ArticleInfo {
 type SearchArticleReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Keyword       string                 `protobuf:"bytes,1,opt,name=keyword,proto3" json:"keyword,omitempty"`
+	ScrollId      string                 `protobuf:"bytes,2,opt,name=scroll_id,json=scrollId,proto3" json:"scroll_id,omitempty"`
+	Size          uint32                 `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1395,9 +1397,25 @@ func (x *SearchArticleReq) GetKeyword() string {
 	return ""
 }
 
+func (x *SearchArticleReq) GetScrollId() string {
+	if x != nil {
+		return x.ScrollId
+	}
+	return ""
+}
+
+func (x *SearchArticleReq) GetSize() uint32 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
 type SearchArticleRsp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ArticleCards  []*ArticleCard         `protobuf:"bytes,1,rep,name=article_cards,json=articleCards,proto3" json:"article_cards,omitempty"`
+	HasMore       bool                   `protobuf:"varint,2,opt,name=has_more,json=hasMore,proto3" json:"has_more,omitempty"`
+	ScrollId      string                 `protobuf:"bytes,3,opt,name=scroll_id,json=scrollId,proto3" json:"scroll_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1437,6 +1455,20 @@ func (x *SearchArticleRsp) GetArticleCards() []*ArticleCard {
 		return x.ArticleCards
 	}
 	return nil
+}
+
+func (x *SearchArticleRsp) GetHasMore() bool {
+	if x != nil {
+		return x.HasMore
+	}
+	return false
+}
+
+func (x *SearchArticleRsp) GetScrollId() string {
+	if x != nil {
+		return x.ScrollId
+	}
+	return ""
 }
 
 type QueryCategoryReq struct {
@@ -1694,11 +1726,15 @@ const file_blog_article_svr_proto_rawDesc = "" +
 	"\n" +
 	"article_id\x18\x01 \x01(\tR\tarticleId\"R\n" +
 	"\x0eReadArticleRsp\x12@\n" +
-	"\farticle_info\x18\x01 \x01(\v2\x1d.blog_article_svr.ArticleInfoR\varticleInfo\",\n" +
+	"\farticle_info\x18\x01 \x01(\v2\x1d.blog_article_svr.ArticleInfoR\varticleInfo\"]\n" +
 	"\x10SearchArticleReq\x12\x18\n" +
-	"\akeyword\x18\x01 \x01(\tR\akeyword\"V\n" +
+	"\akeyword\x18\x01 \x01(\tR\akeyword\x12\x1b\n" +
+	"\tscroll_id\x18\x02 \x01(\tR\bscrollId\x12\x12\n" +
+	"\x04size\x18\x03 \x01(\rR\x04size\"\x8e\x01\n" +
 	"\x10SearchArticleRsp\x12B\n" +
-	"\rarticle_cards\x18\x01 \x03(\v2\x1d.blog_article_svr.ArticleCardR\farticleCards\"\x12\n" +
+	"\rarticle_cards\x18\x01 \x03(\v2\x1d.blog_article_svr.ArticleCardR\farticleCards\x12\x19\n" +
+	"\bhas_more\x18\x02 \x01(\bR\ahasMore\x12\x1b\n" +
+	"\tscroll_id\x18\x03 \x01(\tR\bscrollId\"\x12\n" +
 	"\x10QueryCategoryReq\"Y\n" +
 	"\x10QueryCategoryRsp\x12E\n" +
 	"\x0ecategory_infos\x18\x01 \x03(\v2\x1e.blog_article_svr.CategoryInfoR\rcategoryInfos\"!\n" +

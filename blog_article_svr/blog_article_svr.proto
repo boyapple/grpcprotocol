@@ -153,10 +153,14 @@ message ReadArticleRsp{
 
 message SearchArticleReq{
   string keyword = 1;
+  string scroll_id = 2;
+  uint32 size = 3;
 }
 
 message SearchArticleRsp{
   repeated ArticleCard article_cards = 1;
+  bool has_more = 2;
+  string scroll_id = 3;
 }
 
 message QueryCategoryReq{

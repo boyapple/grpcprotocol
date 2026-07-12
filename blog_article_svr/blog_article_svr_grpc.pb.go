@@ -19,18 +19,44 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ArticleService_SaveArticle_FullMethodName   = "/blog_article_svr.ArticleService/SaveArticle"
-	ArticleService_GetArticle_FullMethodName    = "/blog_article_svr.ArticleService/GetArticle"
-	ArticleService_QueryCategory_FullMethodName = "/blog_article_svr.ArticleService/QueryCategory"
-	ArticleService_QueryTag_FullMethodName      = "/blog_article_svr.ArticleService/QueryTag"
+	ArticleService_CreateArticle_FullMethodName  = "/blog_article_svr.ArticleService/CreateArticle"
+	ArticleService_UpdateArticle_FullMethodName  = "/blog_article_svr.ArticleService/UpdateArticle"
+	ArticleService_DeleteArticle_FullMethodName  = "/blog_article_svr.ArticleService/DeleteArticle"
+	ArticleService_GetArticle_FullMethodName     = "/blog_article_svr.ArticleService/GetArticle"
+	ArticleService_QueryArticle_FullMethodName   = "/blog_article_svr.ArticleService/QueryArticle"
+	ArticleService_PublishArticle_FullMethodName = "/blog_article_svr.ArticleService/PublishArticle"
+	ArticleService_OfflineArticle_FullMethodName = "/blog_article_svr.ArticleService/OfflineArticle"
+	ArticleService_GetFeeds_FullMethodName       = "/blog_article_svr.ArticleService/GetFeeds"
+	ArticleService_ReadArticle_FullMethodName    = "/blog_article_svr.ArticleService/ReadArticle"
+	ArticleService_SearchArticle_FullMethodName  = "/blog_article_svr.ArticleService/SearchArticle"
+	ArticleService_QueryCategory_FullMethodName  = "/blog_article_svr.ArticleService/QueryCategory"
+	ArticleService_QueryTag_FullMethodName       = "/blog_article_svr.ArticleService/QueryTag"
 )
 
 // ArticleServiceClient is the client API for ArticleService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ArticleServiceClient interface {
-	SaveArticle(ctx context.Context, in *SaveArticleReq, opts ...grpc.CallOption) (*SaveArticleRsp, error)
+	// 创建文章
+	CreateArticle(ctx context.Context, in *CreateArticleReq, opts ...grpc.CallOption) (*CreateArticleRsp, error)
+	// 更新文章,这个是给用户更新自己的文章用的,用户id从context中获取
+	UpdateArticle(ctx context.Context, in *UpdateArticleReq, opts ...grpc.CallOption) (*UpdateArticleRsp, error)
+	// 删除文章
+	DeleteArticle(ctx context.Context, in *DeleteArticleReq, opts ...grpc.CallOption) (*DeleteArticleRsp, error)
+	// 获取文章,目前是给用户获取自己的文章详情用的,用户id从context中获取
 	GetArticle(ctx context.Context, in *GetArticleReq, opts ...grpc.CallOption) (*GetArticleRsp, error)
+	// 查询文章,目前是给用户查询自己文章用的,用户id从context中获取
+	QueryArticle(ctx context.Context, in *QueryArticleReq, opts ...grpc.CallOption) (*QueryArticleRsp, error)
+	// 发布文章
+	PublishArticle(ctx context.Context, in *PublishArticleReq, opts ...grpc.CallOption) (*PublishArticleRsp, error)
+	// 下架文章
+	OfflineArticle(ctx context.Context, in *OfflineArticleReq, opts ...grpc.CallOption) (*OfflineArticleRsp, error)
+	// 这个主要用于主页的文章浏览
+	GetFeeds(ctx context.Context, in *GetFeedsReq, opts ...grpc.CallOption) (*GetFeedsRsp, error)
+	// 阅读文章,这里读的是正式表的文章
+	ReadArticle(ctx context.Context, in *ReadArticleReq, opts ...grpc.CallOption) (*ReadArticleRsp, error)
+	// 搜索文章,这里搜索的是es里面的文章
+	SearchArticle(ctx context.Context, in *SearchArticleReq, opts ...grpc.CallOption) (*SearchArticleRsp, error)
 	QueryCategory(ctx context.Context, in *QueryCategoryReq, opts ...grpc.CallOption) (*QueryCategoryRsp, error)
 	QueryTag(ctx context.Context, in *QueryTagReq, opts ...grpc.CallOption) (*QueryTagRsp, error)
 }
@@ -43,10 +69,30 @@ func NewArticleServiceClient(cc grpc.ClientConnInterface) ArticleServiceClient {
 	return &articleServiceClient{cc}
 }
 
-func (c *articleServiceClient) SaveArticle(ctx context.Context, in *SaveArticleReq, opts ...grpc.CallOption) (*SaveArticleRsp, error) {
+func (c *articleServiceClient) CreateArticle(ctx context.Context, in *CreateArticleReq, opts ...grpc.CallOption) (*CreateArticleRsp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SaveArticleRsp)
-	err := c.cc.Invoke(ctx, ArticleService_SaveArticle_FullMethodName, in, out, cOpts...)
+	out := new(CreateArticleRsp)
+	err := c.cc.Invoke(ctx, ArticleService_CreateArticle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) UpdateArticle(ctx context.Context, in *UpdateArticleReq, opts ...grpc.CallOption) (*UpdateArticleRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateArticleRsp)
+	err := c.cc.Invoke(ctx, ArticleService_UpdateArticle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) DeleteArticle(ctx context.Context, in *DeleteArticleReq, opts ...grpc.CallOption) (*DeleteArticleRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteArticleRsp)
+	err := c.cc.Invoke(ctx, ArticleService_DeleteArticle_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,6 +103,66 @@ func (c *articleServiceClient) GetArticle(ctx context.Context, in *GetArticleReq
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetArticleRsp)
 	err := c.cc.Invoke(ctx, ArticleService_GetArticle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) QueryArticle(ctx context.Context, in *QueryArticleReq, opts ...grpc.CallOption) (*QueryArticleRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryArticleRsp)
+	err := c.cc.Invoke(ctx, ArticleService_QueryArticle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) PublishArticle(ctx context.Context, in *PublishArticleReq, opts ...grpc.CallOption) (*PublishArticleRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PublishArticleRsp)
+	err := c.cc.Invoke(ctx, ArticleService_PublishArticle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) OfflineArticle(ctx context.Context, in *OfflineArticleReq, opts ...grpc.CallOption) (*OfflineArticleRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OfflineArticleRsp)
+	err := c.cc.Invoke(ctx, ArticleService_OfflineArticle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) GetFeeds(ctx context.Context, in *GetFeedsReq, opts ...grpc.CallOption) (*GetFeedsRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetFeedsRsp)
+	err := c.cc.Invoke(ctx, ArticleService_GetFeeds_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) ReadArticle(ctx context.Context, in *ReadArticleReq, opts ...grpc.CallOption) (*ReadArticleRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReadArticleRsp)
+	err := c.cc.Invoke(ctx, ArticleService_ReadArticle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *articleServiceClient) SearchArticle(ctx context.Context, in *SearchArticleReq, opts ...grpc.CallOption) (*SearchArticleRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SearchArticleRsp)
+	err := c.cc.Invoke(ctx, ArticleService_SearchArticle_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,8 +193,26 @@ func (c *articleServiceClient) QueryTag(ctx context.Context, in *QueryTagReq, op
 // All implementations should embed UnimplementedArticleServiceServer
 // for forward compatibility.
 type ArticleServiceServer interface {
-	SaveArticle(context.Context, *SaveArticleReq) (*SaveArticleRsp, error)
+	// 创建文章
+	CreateArticle(context.Context, *CreateArticleReq) (*CreateArticleRsp, error)
+	// 更新文章,这个是给用户更新自己的文章用的,用户id从context中获取
+	UpdateArticle(context.Context, *UpdateArticleReq) (*UpdateArticleRsp, error)
+	// 删除文章
+	DeleteArticle(context.Context, *DeleteArticleReq) (*DeleteArticleRsp, error)
+	// 获取文章,目前是给用户获取自己的文章详情用的,用户id从context中获取
 	GetArticle(context.Context, *GetArticleReq) (*GetArticleRsp, error)
+	// 查询文章,目前是给用户查询自己文章用的,用户id从context中获取
+	QueryArticle(context.Context, *QueryArticleReq) (*QueryArticleRsp, error)
+	// 发布文章
+	PublishArticle(context.Context, *PublishArticleReq) (*PublishArticleRsp, error)
+	// 下架文章
+	OfflineArticle(context.Context, *OfflineArticleReq) (*OfflineArticleRsp, error)
+	// 这个主要用于主页的文章浏览
+	GetFeeds(context.Context, *GetFeedsReq) (*GetFeedsRsp, error)
+	// 阅读文章,这里读的是正式表的文章
+	ReadArticle(context.Context, *ReadArticleReq) (*ReadArticleRsp, error)
+	// 搜索文章,这里搜索的是es里面的文章
+	SearchArticle(context.Context, *SearchArticleReq) (*SearchArticleRsp, error)
 	QueryCategory(context.Context, *QueryCategoryReq) (*QueryCategoryRsp, error)
 	QueryTag(context.Context, *QueryTagReq) (*QueryTagRsp, error)
 }
@@ -100,11 +224,35 @@ type ArticleServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedArticleServiceServer struct{}
 
-func (UnimplementedArticleServiceServer) SaveArticle(context.Context, *SaveArticleReq) (*SaveArticleRsp, error) {
-	return nil, status.Error(codes.Unimplemented, "method SaveArticle not implemented")
+func (UnimplementedArticleServiceServer) CreateArticle(context.Context, *CreateArticleReq) (*CreateArticleRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateArticle not implemented")
+}
+func (UnimplementedArticleServiceServer) UpdateArticle(context.Context, *UpdateArticleReq) (*UpdateArticleRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateArticle not implemented")
+}
+func (UnimplementedArticleServiceServer) DeleteArticle(context.Context, *DeleteArticleReq) (*DeleteArticleRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteArticle not implemented")
 }
 func (UnimplementedArticleServiceServer) GetArticle(context.Context, *GetArticleReq) (*GetArticleRsp, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetArticle not implemented")
+}
+func (UnimplementedArticleServiceServer) QueryArticle(context.Context, *QueryArticleReq) (*QueryArticleRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method QueryArticle not implemented")
+}
+func (UnimplementedArticleServiceServer) PublishArticle(context.Context, *PublishArticleReq) (*PublishArticleRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method PublishArticle not implemented")
+}
+func (UnimplementedArticleServiceServer) OfflineArticle(context.Context, *OfflineArticleReq) (*OfflineArticleRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method OfflineArticle not implemented")
+}
+func (UnimplementedArticleServiceServer) GetFeeds(context.Context, *GetFeedsReq) (*GetFeedsRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetFeeds not implemented")
+}
+func (UnimplementedArticleServiceServer) ReadArticle(context.Context, *ReadArticleReq) (*ReadArticleRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method ReadArticle not implemented")
+}
+func (UnimplementedArticleServiceServer) SearchArticle(context.Context, *SearchArticleReq) (*SearchArticleRsp, error) {
+	return nil, status.Error(codes.Unimplemented, "method SearchArticle not implemented")
 }
 func (UnimplementedArticleServiceServer) QueryCategory(context.Context, *QueryCategoryReq) (*QueryCategoryRsp, error) {
 	return nil, status.Error(codes.Unimplemented, "method QueryCategory not implemented")
@@ -132,20 +280,56 @@ func RegisterArticleServiceServer(s grpc.ServiceRegistrar, srv ArticleServiceSer
 	s.RegisterService(&ArticleService_ServiceDesc, srv)
 }
 
-func _ArticleService_SaveArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SaveArticleReq)
+func _ArticleService_CreateArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateArticleReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ArticleServiceServer).SaveArticle(ctx, in)
+		return srv.(ArticleServiceServer).CreateArticle(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ArticleService_SaveArticle_FullMethodName,
+		FullMethod: ArticleService_CreateArticle_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ArticleServiceServer).SaveArticle(ctx, req.(*SaveArticleReq))
+		return srv.(ArticleServiceServer).CreateArticle(ctx, req.(*CreateArticleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_UpdateArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateArticleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).UpdateArticle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_UpdateArticle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).UpdateArticle(ctx, req.(*UpdateArticleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_DeleteArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteArticleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).DeleteArticle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_DeleteArticle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).DeleteArticle(ctx, req.(*DeleteArticleReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -164,6 +348,114 @@ func _ArticleService_GetArticle_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ArticleServiceServer).GetArticle(ctx, req.(*GetArticleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_QueryArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryArticleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).QueryArticle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_QueryArticle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).QueryArticle(ctx, req.(*QueryArticleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_PublishArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublishArticleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).PublishArticle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_PublishArticle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).PublishArticle(ctx, req.(*PublishArticleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_OfflineArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OfflineArticleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).OfflineArticle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_OfflineArticle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).OfflineArticle(ctx, req.(*OfflineArticleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_GetFeeds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFeedsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).GetFeeds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_GetFeeds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).GetFeeds(ctx, req.(*GetFeedsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_ReadArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadArticleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).ReadArticle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_ReadArticle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).ReadArticle(ctx, req.(*ReadArticleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ArticleService_SearchArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchArticleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ArticleServiceServer).SearchArticle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ArticleService_SearchArticle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ArticleServiceServer).SearchArticle(ctx, req.(*SearchArticleReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -212,12 +504,44 @@ var ArticleService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ArticleServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SaveArticle",
-			Handler:    _ArticleService_SaveArticle_Handler,
+			MethodName: "CreateArticle",
+			Handler:    _ArticleService_CreateArticle_Handler,
+		},
+		{
+			MethodName: "UpdateArticle",
+			Handler:    _ArticleService_UpdateArticle_Handler,
+		},
+		{
+			MethodName: "DeleteArticle",
+			Handler:    _ArticleService_DeleteArticle_Handler,
 		},
 		{
 			MethodName: "GetArticle",
 			Handler:    _ArticleService_GetArticle_Handler,
+		},
+		{
+			MethodName: "QueryArticle",
+			Handler:    _ArticleService_QueryArticle_Handler,
+		},
+		{
+			MethodName: "PublishArticle",
+			Handler:    _ArticleService_PublishArticle_Handler,
+		},
+		{
+			MethodName: "OfflineArticle",
+			Handler:    _ArticleService_OfflineArticle_Handler,
+		},
+		{
+			MethodName: "GetFeeds",
+			Handler:    _ArticleService_GetFeeds_Handler,
+		},
+		{
+			MethodName: "ReadArticle",
+			Handler:    _ArticleService_ReadArticle_Handler,
+		},
+		{
+			MethodName: "SearchArticle",
+			Handler:    _ArticleService_SearchArticle_Handler,
 		},
 		{
 			MethodName: "QueryCategory",

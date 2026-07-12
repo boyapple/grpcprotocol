@@ -6,7 +6,7 @@ option go_package = "github.com/boyapple/grpcprotocol/blog_article_svr";
 
 import "validate/validate.proto";
 
-// 文章状态
+// 文章状态,这是草稿表的状态
 enum ArticleStatus {
   ARTICLE_STATUS_UNKNOWN = 0;
   ARTICLE_STATUS_DRAFT = 1;      // 草稿
@@ -14,6 +14,13 @@ enum ArticleStatus {
   ARTICLE_STATUS_PUBLISHED = 3;  // 已发布
   ARTICLE_STATUS_REJECTED = 4;   // 已拒绝
   ARTICLE_STATUS_OFFLINE = 5;    // 已下架
+}
+
+// 发布状态,这个是正式表的状态
+enum PublishStatus{
+  PUBLISH_STATUS_UNKNOWN = 0;
+  PUBLISH_STATUS_PUBLISH = 1; // 已发布
+  PUBLISH_STATUS_OFFLINE = 2; // 已下架
 }
 
 // 文章服务错误码
@@ -29,9 +36,12 @@ message ArticleInfo {
   string cover = 5;
   string content = 6;
   ArticleStatus status = 7;
+  bool allow_comment = 8;
+  uint32 word_count = 9;
+  bool is_featured = 10;
 
-  uint64 category_id = 20;
-  repeated string tags = 21;
+  CategoryInfo category_info = 20;
+  repeated TagInfo tags = 21;
 }
 
 message CategoryInfo{
@@ -50,27 +60,63 @@ message TagInfo{
   string color = 5;
 }
 
-message Feeds {
+message ArticleCard {
   string article_id = 1;
   uint64 author_id = 2;
   string title = 3;
   string summary = 4;
-  uint64 category_id = 5;
   string slug = 6;
   string cover = 7;
   bool allow_comment = 8;
   uint32 word_count = 9;
   bool is_featured = 10;
-  int64 publish_time = 20;
-  int64 create_time = 21;
+  PublishStatus publish_status = 11;
+
+  int64 publish_time = 18;
+  int64 create_time = 19;
+
+  CategoryInfo category_info = 21;
+  repeated TagInfo tags = 22;
 }
 
-message SaveArticleReq{
+message CreateArticleReq{
   ArticleInfo article_info = 1 [(validate.rules).message.required = true];
 }
 
-message SaveArticleRsp{
+message CreateArticleRsp{
   string id = 1;
+}
+
+message UpdateArticleReq{
+  ArticleInfo article_info = 1 [(validate.rules).message.required = true];
+}
+
+message UpdateArticleRsp{
+
+}
+
+message DeleteArticleReq{
+  string article_id = 1;
+}
+
+message DeleteArticleRsp{
+
+}
+
+message PublishArticleReq{
+  ArticleInfo article_info = 1[(validate.rules).message.required = true];
+}
+
+message PublishArticleRsp{
+
+}
+
+message OfflineArticleReq{
+  string article_id = 1;
+}
+
+message OfflineArticleRsp{
+
 }
 
 message GetArticleReq{
@@ -79,6 +125,38 @@ message GetArticleReq{
 
 message GetArticleRsp{
   ArticleInfo article_info = 1;
+}
+
+message QueryArticleReq{
+
+}
+
+message QueryArticleRsp{
+  repeated ArticleInfo article_info = 1;
+}
+
+message GetFeedsReq{
+
+}
+
+message GetFeedsRsp{
+  repeated ArticleCard article_cards = 1;
+}
+
+message ReadArticleReq{
+  string article_id = 1;
+}
+
+message ReadArticleRsp{
+  ArticleInfo article_info = 1;
+}
+
+message SearchArticleReq{
+  string keyword = 1;
+}
+
+message SearchArticleRsp{
+  repeated ArticleCard article_cards = 1;
 }
 
 message QueryCategoryReq{
@@ -98,8 +176,26 @@ message QueryTagRsp{
 }
 
 service ArticleService{
-  rpc SaveArticle(SaveArticleReq) returns (SaveArticleRsp);
+  // 创建文章
+  rpc CreateArticle(CreateArticleReq) returns (CreateArticleRsp);
+  // 更新文章,这个是给用户更新自己的文章用的,用户id从context中获取
+  rpc UpdateArticle(UpdateArticleReq) returns (UpdateArticleRsp);
+  // 删除文章
+  rpc DeleteArticle(DeleteArticleReq) returns (DeleteArticleRsp);
+  // 获取文章,目前是给用户获取自己的文章详情用的,用户id从context中获取
   rpc GetArticle(GetArticleReq) returns (GetArticleRsp);
+  // 查询文章,目前是给用户查询自己文章用的,用户id从context中获取
+  rpc QueryArticle(QueryArticleReq) returns (QueryArticleRsp);
+  // 发布文章
+  rpc PublishArticle(PublishArticleReq) returns (PublishArticleRsp);
+  // 下架文章
+  rpc OfflineArticle(OfflineArticleReq) returns (OfflineArticleRsp);
+  // 这个主要用于主页的文章浏览
+  rpc GetFeeds(GetFeedsReq) returns (GetFeedsRsp);
+  // 阅读文章,这里读的是正式表的文章
+  rpc ReadArticle(ReadArticleReq) returns (ReadArticleRsp);
+  // 搜索文章,这里搜索的是es里面的文章
+  rpc SearchArticle(SearchArticleReq) returns (SearchArticleRsp);
 
   rpc QueryCategory(QueryCategoryReq) returns (QueryCategoryRsp);
   rpc QueryTag(QueryTagReq) returns (QueryTagRsp);
